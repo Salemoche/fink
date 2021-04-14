@@ -1,0 +1,19 @@
+{
+  "name": "fink-theme",
+  "version": "1.0.0",
+  "description": "Gatsby Wordpress Theme for the fink.studio Website",
+  "main": "index.js",
+  "author": "Gabriel Bach",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "site",
+    "packages/gatsby-wordpress-theme-fink"
+  ],
+  "scripts": {
+    "start": "yarn workspace site dev",
+    "clean": "yarn workspace site clean",
+    "build": "yarn workspace site build",
+    "serve": "yarn workspace site serve"
+  }
+}
