@@ -1,5 +1,7 @@
-export const getGatsbyImage = (image) => {
+export const getGatsbyImage = ( image ) => {
 
+    if (!image) return
+    
     if ( image.node ) {
         return {
             image: image.node.localFile?.childImageSharp?.gatsbyImageData,
@@ -11,4 +13,8 @@ export const getGatsbyImage = (image) => {
         image: image.localFile?.childImageSharp?.gatsbyImageData,
         altText: image.altText
     }
+}
+
+export const smDebugLog = ( content ) => {
+    console.log(content);
 }

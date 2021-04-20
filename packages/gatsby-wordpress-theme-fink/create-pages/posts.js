@@ -1,13 +1,13 @@
 const path = require(`path`)
 const { slash } = require( `gatsby-core-utils` );
 const customTemplates = [ '/blog/', '/', '/blog', 'blog' ];
-const singlePostTemplate = require.resolve(`../src/templates/post/index.js`);
+const singlePostTemplate = require.resolve(`../src/templates/post/post.js`);
 // const {SeoFragment} = require( './fragments/seo/index.js' );
 
 
 const GET_POSTS = `
     query {
-        allWpPost(limit: 10) {
+        allWpPost(limit: 100) {
             edges {
                 node {
                     id
@@ -15,9 +15,7 @@ const GET_POSTS = `
                     content
                     slug
                     uri
-                    
                     acfProject {
-                        fieldGroupName
                         homeImageNoTexture {
                             altText
                             localFile {
@@ -34,17 +32,40 @@ const GET_POSTS = `
                                 }
                             }
                         }
-                        content {
-                            ... on WpPost_Acfproject_Content_ImageRight {
-                                fieldGroupName
-                                imageCaption
-                                imageLarge
-                                text
-                                image {
-                                    altText
-                                    localFile {
-                                        childImageSharp {
-                                        gatsbyImageData
+                        projectDetailImage {
+                            altText
+                            localFile {
+                                childImageSharp {
+                                gatsbyImageData
+                                }
+                            }
+                        }
+                        projectOverviewImage {
+                            altText
+                            localFile {
+                                childImageSharp {
+                                gatsbyImageData
+                                }
+                            }
+                        }
+                    }
+
+                    acfContent {
+                        sections {
+                            content {
+                                ... on WpPost_Acfcontent_sections_Content_TextLayout {
+                                    fieldGroupName
+                                    text
+                                }
+                                ... on WpPost_Acfcontent_sections_Content_ImageLayout {
+                                    fieldGroupName
+                                    image {
+                                        altText
+                                        caption
+                                        localFile {
+                                            childImageSharp {
+                                                gatsbyImageData
+                                            }
                                         }
                                     }
                                 }
@@ -68,7 +89,6 @@ module.exports = async ( { actions, graphql } ) => {
 		return await graphql( GET_POSTS )
 			.then( ( { data } ) => {
 
-                console.log(JSON.stringify(data, null, 4))
 
 				const { allWpPost: { edges } } = data;
 
@@ -85,6 +105,7 @@ module.exports = async ( { actions, graphql } ) => {
             // console.warn('Step 4 -----------------------------------------');
 
             postContent = post.node
+            console.log(JSON.stringify(postContent.acfContent, null, 4))
 
 			// If its not a custom template, create the post.
 			if ( ! customTemplates.includes( postContent.slug ) ) {
