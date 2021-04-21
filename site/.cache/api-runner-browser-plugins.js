@@ -9,7 +9,7 @@ module.exports = [{
       options: {"plugins":[]},
     },{
       plugin: require('../../node_modules/gatsby-source-wordpress/gatsby-browser.js'),
-      options: {"plugins":[],"url":"https://backend.fink.studio/graphql","hostingWPCOM":false,"useACF":true,"schema":{"perPage":20,"requestConcurrency":5,"previewRequestConcurrency":2}},
+      options: {"plugins":[],"url":"https://backend.fink.studio/graphql","hostingWPCOM":false,"useACF":true,"schema":{"perPage":10,"requestConcurrency":3,"previewRequestConcurrency":1}},
     },{
       plugin: require('../../node_modules/gatsby-plugin-offline/gatsby-browser.js'),
       options: {"plugins":[]},

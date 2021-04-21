@@ -5,8 +5,8 @@ import React from 'react';
 // Misc
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TextBlock from '../../2_molecules/TextBlock/text-block.component';
-import ImageBlock from '../../2_molecules/ImageBlock/image-block.component';
+import TextBlock from '../../2_molecules/text-block/text-block.component';
+import ImageBlock from '../../2_molecules/image-block/image-block.component';
 
 const ContentSection = ( props ) => {
 

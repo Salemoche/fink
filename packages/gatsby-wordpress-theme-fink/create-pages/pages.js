@@ -1,7 +1,8 @@
 const path = require(`path`)
 const { slash } = require( `gatsby-core-utils` );
-const customTemplates = [ '/blog/', '/', '/blog', 'blog' ];
+// const customTemplates = [ '/about/', '/', '/about', 'about' ];
 const singlePageTemplate = require.resolve(`../src/templates/page/page.js`);
+const { hasTemplate } = require("./custom-templates");
 // const {SeoFragment} = require( './fragments/seo/index.js' );
 
 
@@ -45,8 +46,8 @@ module.exports = async ( { actions, graphql } ) => {
             pageContent = page.node
 
 			// If its not a custom template, create the page.
-			if ( ! customTemplates.includes( pageContent.slug ) ) {
-
+			if ( !hasTemplate(pageContent.slug) ) {
+				console.info('creating page', pageContent.slug)
 				createPage( {
 					path: `${ pageContent.slug }`,
 					component: slash( singlePageTemplate ),

@@ -2,6 +2,7 @@ const path = require(`path`)
 const { slash } = require( `gatsby-core-utils` );
 const customTemplates = [ '/blog/', '/', '/blog', 'blog' ];
 const singlePostTemplate = require.resolve(`../src/templates/post/post.js`);
+const { hasTemplate } = require("./custom-templates");
 // const {SeoFragment} = require( './fragments/seo/index.js' );
 
 
@@ -105,15 +106,15 @@ module.exports = async ( { actions, graphql } ) => {
             // console.warn('Step 4 -----------------------------------------');
 
             postContent = post.node
-            console.log(JSON.stringify(postContent.acfContent, null, 4))
 
 			// If its not a custom template, create the post.
-			if ( ! customTemplates.includes( postContent.slug ) ) {
+			if ( !hasTemplate(pageContent.slug) ) {
+
 
 				createPage( {
 					path: `${ postContent.slug }`,
 					component: slash( singlePostTemplate ),
-					context: { ...postContent }, // pass single page data in context, so its available in the singlePagetTemplate in props.pageContext.
+					context: { dini: 'mueter isch e verfickti hure' }, // pass single page data in context, so its available in the singlePagetTemplate in props.pageContext.
 				} );
 
 			}

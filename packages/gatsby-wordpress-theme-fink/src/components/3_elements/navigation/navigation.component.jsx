@@ -5,20 +5,25 @@ import React from 'react';
 import './navigation.styles.scss'
 
 // Gatsby
-import { Link } from 'gatsby';
+import { StaticQuery, Link, graphql } from 'gatsby';
+import { classNames } from 'classnames';
 
 
-const Layout = ( {children} ) => {
+const Navigation = (menu) => {
 
     return (
-        <nav className="navigation">
-            <ul>
-                <li>
-                    <Link to="/öalksdjfa">some link</Link>
-                </li>
-            </ul>
-        </nav>
+        <header>
+            <nav className="header-navigation">
+                <ul>
+                    { menu.menuItems.nodes.map(menuItem => (
+                        <li className={`header-navigation-list-item header-navigation-${menuItem.label.toLowerCase()}`} key={menuItem.order}>
+                            <Link to={menuItem.url}>{menuItem.label}</Link>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </header>
     )
 }
 
-export default Layout;
+export default Navigation;

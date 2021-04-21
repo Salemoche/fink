@@ -1,18 +1,39 @@
+// React
 import React from 'react';
 import { graphql } from "gatsby"
 
-const IndexPage = ({data}) => {
+// Gatsby
+
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { getGatsbyImage } from '../utils/helpers';
+
+//Components
+import HomeProject from '../components/2_molecules/home-project/home-project.component';
+import Layout from '../components/1_atoms/layout/layout.component';
+
+// Misc
+
+const IndexPage = ({data: {wpPage: {title, acfStart: { partners, projects, partnersTitle }}}}) => {
+    console.log(title, partnersTitle)
     return (
-        <div>
-          <h1>My WordPress Blog</h1>
-          <h4>Posts</h4>
-          {data.allWpPost.edges.map(({ node }) => (
-            <div key={node.id}>
-              <p>{node.title}</p>
-              <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
-          ))}
-        </div>
+        <Layout>
+            <h1>This is comming from the index</h1>
+            {projects.map( project => (
+                <HomeProject key={project.id} {...project} />
+            ))}
+            <section className="home-partners">
+                <h2>{partnersTitle}</h2>
+                {partners.map( partner => {
+
+                    const logo = getGatsbyImage(partner.logo);
+                    return (
+                        <a href={partner.link} className="home-partner" key={partner.logo.id}>
+                            <GatsbyImage className="home-project-background-texture" image={logo.image} alt={logo.altText}></GatsbyImage>
+                        </a>
+                    )
+                })} 
+            </section>
+        </Layout>
     )
 }
 
@@ -20,25 +41,51 @@ export default IndexPage;
 
 export const pageQuery = graphql`
     query {
-        allWpPost(limit: 10) {
-            edges {
-                node {
-                    id
-                    title
-                    content
-                    slug
-                    uri
-                    featuredImage {
-                        node {
-                            localFile {
-                                childrenImageSharp {
-                                    fluid {
-                                        base64
-                                        src
-                                        srcSet
-                                        sizes
+        wpPage(isFrontPage: {eq: true}) {
+            id
+            title
+            acfStart {
+                partnersTitle
+                partners {
+                    link
+                    logo {
+                        altText
+                        localFile {
+                            childImageSharp {
+                                gatsbyImageData
+                            }
+                        }
+                    }
+                }
+                projects {
+                    ... on WpPost {
+                        title
+                        id
+                        slug
+                        acfProject {
+                            projectMetaLine
+                            homeImageNoTexture {
+                                altText
+                                localFile {
+                                    childImageSharp {
+                                    gatsbyImageData
                                     }
                                 }
+                            }
+                            homeImageTexture {
+                                altText
+                                localFile {
+                                    childImageSharp {
+                                    gatsbyImageData
+                                    }
+                                }
+                            }
+                        }
+                        categories {
+                            nodes {
+                                id
+                                name
+                                slug
                             }
                         }
                     }

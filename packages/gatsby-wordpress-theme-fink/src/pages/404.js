@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from "gatsby"
-import Layout from '../components/3_elements/layout/layout.component';
+import Layout from '../components/1_atoms/layout/layout.component';
 
 const NotFoundPage = ({data}) => {
     return (

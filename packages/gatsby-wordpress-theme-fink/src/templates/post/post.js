@@ -6,14 +6,13 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 
 // Components
 import ContentSection from '../../components/3_elements/content-section/content-section.component';
-import Default from '../../components/3_elements/ProjectHeader/default.component';
-import ProjectHeader from '../../components/3_elements/project-header/project-header.component';
+import ProjectHeader from '../../components/2_molecules/project-header/project-header.component';
 
 // Styles
 
 // Misc
 import { getGatsbyImage } from '../../utils/helpers';
-import Layout from '../../components/3_elements/layout/layout.component';
+import Layout from '../../components/1_atoms/layout/layout.component';
 
 // function reducer() {
 
