@@ -4,7 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    // padding-top: $header-height;
+    padding-top: $header-height;
 
     h1 {
         width: 100%;
@@ -19,7 +19,9 @@
             font-size: 0;
 
             .overview-project-background-texture, .overview-project-background-no-texture {
-                transform: scaleX(-1);
+                &.flip {
+                    transform: scaleX(-1);
+                }
             }
 
             .overview-project-background-texture {
@@ -52,8 +54,8 @@
             padding: map_get( $spacing, "regular" );
 
             h2 {
-                grid-column-start: 2;
-                grid-column-end: 6;
+                // grid-column-start: 2;
+                // grid-column-end: 6;
                 color: white;
                 font-size: 64px;
                 line-height: 1;
@@ -95,6 +97,26 @@
             .overview-project-content h2 {
                 opacity: 1;
                 transition: $transition-extra-long-delayed;
+            }
+        }
+    }
+
+
+    
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+
+        min-height: 100vh;
+
+        .overview-project {
+            .overview-project-content {
+                h2 {
+                    font-size: 24px;
+                }
+            }
+
+            &.extra-tile {
+                width: 100%;
+                padding-top: map_get( $spacing, "large" );
             }
         }
     }

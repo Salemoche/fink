@@ -29,10 +29,12 @@ footer {
             flex-wrap: wrap;
             list-style: none;
             padding: 0;
+            margin: 0;
 
             .footer-navigation-list-item {
                 width: 100%;
                 text-align: right;
+                text-transform: uppercase;
             }
         }
     }
@@ -41,5 +43,28 @@ footer {
         grid-column-start: 1;
         grid-column-end: 13;
         text-align: center;
+        margin-top: map_get( $spacing, "regular" );
+    }
+
+
+    
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {  
+
+        padding-top: map_get( $spacing, "large" );
+    
+        .footer-contact-info {
+            grid-column-start: 1;
+            grid-column-end: 4;
+        }
+
+        .footer-navigation {
+            grid-column-start: 4;
+            grid-column-end: 7;
+        }
+
+        .footer-copyright {
+            grid-column-start: 1;
+            grid-column-end: 7;
+        }
     }
 }

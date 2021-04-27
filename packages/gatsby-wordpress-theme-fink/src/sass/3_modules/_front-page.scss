@@ -6,8 +6,8 @@
     background: $gray;
 
     h2 {
-        grid-column-start: 2;
-        grid-column-end: 12;
+        // grid-column-start: 2;
+        // grid-column-end: 12;
     }
     
     .home-partners-container {
@@ -16,12 +16,33 @@
         flex-wrap: wrap;
         height: 100%;
         align-items: center;
-        grid-column-start: 1;
-        grid-column-end: 13;
+        // grid-column-start: 2;
+        // grid-column-end: 12;
         
         .home-partner {
-            width: 25%;
+            width: 33%;
+            margin-top: map_get( $spacing, "extra-large" );
 
+            img {
+                transform: scale(0.66);                
+            }
+        }
+    }
+
+    
+    
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+    
+        .home-partners-container {
+            
+            .home-partner {
+                width: 50%;
+                padding-bottom: map_get( $spacing, "extra-large" );
+    
+                img {
+                    transform: scale(1);                
+                }
+            }
         }
     }
 }

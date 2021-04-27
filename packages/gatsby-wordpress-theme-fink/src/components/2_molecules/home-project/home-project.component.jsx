@@ -40,8 +40,8 @@ const HomeProject = ( {project: { title, categories, slug, acfProject, index, ex
 						}
 					</div>
 					<div className="home-project-content fink-grid-container"> 
-						<h2>{ title }</h2>
-						<div className="home-project-meta lead">
+						<h2 className="fink-grid-item fink-grid-item-2-7">{ title }</h2>
+						<div className="home-project-meta lead fink-grid-item fink-grid-item-2-12">
 							{ acfProject.projectMetaLine ?
 								<div className="home-project-meta-line">{ acfProject.projectMetaLine }</div>
 							:

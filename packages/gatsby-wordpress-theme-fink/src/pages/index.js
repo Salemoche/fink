@@ -21,22 +21,21 @@ import Landing from '../components/2_molecules/landing/landing.component';
 // Misc
 
 // const FrontPage = ({pageContext}) => {
-const FrontPage = ({data: { wpPage }}) => {
+const FrontPage = ({location, data: { wpPage }}) => {
     // setTimeout(() => {
     //     console.log(wpPage)
     // }, 400);
     const {title, acfStart: { partners, projects, partnersTitle, landingVideo }} = wpPage;
-    // console.log(partners)
 
     return (
-        <Layout>
+        <Layout location={location}>
             <Landing {...landingVideo}/>
             {projects.map( (project, index) => (
                 <HomeProject key={index} project={{index, ...project}} />
             ))}
             <section className="home-partners fink-grid-container">
-                <h2>{partnersTitle}</h2>
-                <div className="home-partners-container">
+                <h2 className="fink-grid-item fink-grid-item-2-12">{partnersTitle}</h2>
+                <div className="home-partners-container fink-grid-item fink-grid-item-2-12">
                 {partners.map( (partner, index) => {
                     const logo = getGatsbyImage(partner.logo);
                     return (

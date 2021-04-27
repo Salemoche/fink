@@ -26,7 +26,7 @@ const ProjectHeader = ( {projectDetailImage, title} ) => {
                     <img src={PlaceholderImage} alt="Placeholder" srcSet=""/>
                 }
             </div>
-            <h1 className="header-title">{ title }</h1>
+            <h1 className="header-title fink-grid-item fink-grid-item-2-7">{ title }</h1>
         </div>
     )
 }

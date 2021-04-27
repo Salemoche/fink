@@ -1,6 +1,7 @@
 $content-width: 1240px;
 $content-width--narrow: 768px;
-$header-height: 120px;
+// $header-height: 104px;
+$header-height: 96px;
 
 $mq-breakpoints: (
 	small: 420px,
@@ -15,7 +16,8 @@ $spacing: (
 	"regular": 16px,
 	"large": 32px,
 	"extra-large": 64px,
-	"extra-extra-large": 128px
+	"extra-extra-large": 128px,
+	"extra-extra-extra-large": 256px,
 );
 
 // $font-sizes: (

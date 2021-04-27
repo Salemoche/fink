@@ -9,9 +9,9 @@ import { StaticQuery, Link, graphql } from 'gatsby';
 import { classNames } from 'classnames';
 
 
-const Navigation = ({menu, headerVisibility, headerMode}) => {
+const Navigation = ({location, menu, headerVisibility, headerMode}) => {
 
-    const pathname = window.location.pathname.split('/')[1];
+    const pathname = location.pathname.split('/')[1];
 
     return (
         <header>

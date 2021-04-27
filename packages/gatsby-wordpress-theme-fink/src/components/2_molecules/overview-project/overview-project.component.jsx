@@ -20,29 +20,28 @@ import { Link } from 'gatsby';
 const OverviewProject = ( {project: { title, categories, slug, acfProject }, index} ) => {
 
 
-	const overviewImageTexture = getGatsbyImage(acfProject.homeImageTexture);
-	const overviewImageNoTexture = getGatsbyImage(acfProject.homeImageNoTexture) || overviewImageTexture;
+	const overviewImageTexture = getGatsbyImage(acfProject.projectOverviewImageTexture) || getGatsbyImage(acfProject.homeImageTexture);
+	const overviewImageNoTexture = getGatsbyImage(acfProject.projectOverviewImageNoTexture) || getGatsbyImage(acfProject.projectOverviewImageTexture) || overviewImageTexture;
 	const alignment = index % 2 !== 0 ? 'text-left' : 'text-right';
-
-	console.log(slug)
+	const flipImageClass = !!acfProject.projectOverviewImageTexture ? '' : 'flip';
 
 		return (
 			<div className={`overview-project ${alignment}`}>
 				<Link to={`/${slug}`}>
 					<div className="overview-project-background">
 						{ overviewImageTexture?.image ? 
-							<GatsbyImage className="overview-project-background-texture" image={overviewImageTexture.image} alt={overviewImageTexture.altText}></GatsbyImage>
+							<GatsbyImage className={`overview-project-background-texture ${flipImageClass}`} image={overviewImageTexture.image} alt={overviewImageTexture.altText}></GatsbyImage>
 						:
 							<img src={PlaceholderImage} alt="Placeholder" srcSet=""/>
 						}
 						{ overviewImageTexture?.image && overviewImageNoTexture?.image ? 
-							<GatsbyImage className="overview-project-background-no-texture" image={overviewImageNoTexture.image} alt={overviewImageNoTexture.altText}></GatsbyImage>
+							<GatsbyImage className={`overview-project-background-no-texture ${flipImageClass}`} image={overviewImageNoTexture.image} alt={overviewImageNoTexture.altText}></GatsbyImage>
 						:
 							""
 						}
 					</div>
 					<div className="overview-project-content"> 
-						<h2>{ title }</h2>
+						<h2 className="fink-grid-item fink-grid-item-2-6">{ title }</h2>
 					</div>
 				</Link>
 			</div>

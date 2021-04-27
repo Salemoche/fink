@@ -9,6 +9,7 @@ import './landing.styles.scss';
 
 // Misc
 import PropTypes from 'prop-types';
+import AngleIcon from "../../../images/angle-down-light.svg"
 // import PlaceholderImage from '../../../images/Image-Placeholder.png'
 
 const Landing = ( { mediaItemUrl } ) => {
@@ -20,7 +21,7 @@ const Landing = ( { mediaItemUrl } ) => {
     return (
         <section className="landing">
             <video src={mediaItemUrl} autoPlay={true} loop={true} muted={true}></video>
-            <button className="scroll-down-button" onClick={scrollDown}>▾</button>
+            <button className="scroll-down-button" onClick={scrollDown}><AngleIcon/></button>
         </section>
     )
 }

@@ -7,14 +7,17 @@ import Navigation from '../../3_elements/navigation/navigation.component';
 import Footer from '../../3_elements/footer/footer.component';
 import { StaticQuery, graphql } from 'gatsby';
 import { node } from 'prop-types';
+import Loading from '../../2_molecules/loading/loading.component';
 
 
-const Layout = ( {children} ) => {
+const Layout = ( {location, children} ) => {
 
     const [headerMode, setHeaderMode] = useState('regular');
     const [headerVisibility, setHeaderVisibility] = useState('visible');
+    const [contentLoaded, setContentLoaded] = useState(false);
     const prevScrollY = useRef(0);
-    const pathname = window.location.pathname.split('/')[1] || 'home';
+    const pathname = location.pathname.split('/')[1] || 'home';
+    // console.log(props)
 
     useEffect(() => {
 
@@ -41,7 +44,8 @@ const Layout = ( {children} ) => {
         };
 
         const handleLandingMode = (scrollDist = prevScrollY) => {
-            if (pathname == 'home' && (scrollDist < 20 || !scrollDist)) {
+            if (scrollDist < 42 || !scrollDist) {
+            // if (pathname == 'home' && (scrollDist < 20 || !scrollDist)) {
                 setHeaderMode('landing');
             } else {
                 setHeaderMode('regular');
@@ -55,6 +59,16 @@ const Layout = ( {children} ) => {
     
         return () => layout.removeEventListener("scroll", handleScroll);
     }, [headerMode, headerVisibility]);
+
+    useEffect(() => {
+        setContentLoaded(true);
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            setContentLoaded(false);
+        }
+    }, []);
 
     return (
         <StaticQuery
@@ -99,9 +113,10 @@ const Layout = ( {children} ) => {
 
                 return (
                     <div className={`layout layout-${pathname}`}>
-                        {menuArray?.hauptmenu ? <Navigation menu={menuArray?.['hauptmenu']} headerMode={headerMode} headerVisibility={headerVisibility}/> : ''}
+                        {menuArray?.hauptmenu ? <Navigation location={location} menu={menuArray?.['hauptmenu']} headerMode={headerMode} headerVisibility={headerVisibility}/> : ''}
                             {children}
                         {menuArray?.['footer-menu'] ? <Footer menu={menuArray?.['footer-menu']} siteOptions={siteOptions}/> : ''}
+                        <Loading contentLoaded={contentLoaded}/>
                     </div>
                 )
             }}

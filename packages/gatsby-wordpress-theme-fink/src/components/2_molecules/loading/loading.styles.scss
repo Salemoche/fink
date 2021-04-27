@@ -1,0 +1,17 @@
+@import '../../../sass/essentials';
+
+.loading {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    transition: $transition-extra-long-delayed;
+    z-index: $z-index-loading;
+
+    &.invisible {
+        pointer-events: none;
+        opacity: 0;
+    }
+}

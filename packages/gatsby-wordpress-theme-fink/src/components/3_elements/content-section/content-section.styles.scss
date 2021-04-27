@@ -19,8 +19,8 @@
             position: relative;
 
             .text-block {
-                grid-column-start: 2;
-                grid-column-end: 6;
+                // grid-column-start: 2;
+                // grid-column-end: 6;
 
                 > * {
                     &:last-child {
@@ -30,8 +30,8 @@
             }
 
             .image-block {
-                grid-column-start: 1;
-                grid-column-end: 7;
+                // grid-column-start: 1;
+                // grid-column-end: 7;
 
                 .image-block__caption {
                     position: absolute;
@@ -68,6 +68,14 @@
 
         &.content-section__column-full {
             
+        }
+    }
+
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {
+        .content-section__column {
+            &.content-section__column-left, &.content-section__column-right {
+                grid-template-columns: repeat(6, 1fr);
+            }
         }
     }
 }

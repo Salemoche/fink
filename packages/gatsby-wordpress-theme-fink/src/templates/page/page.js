@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from '../../components/1_atoms/layout/layout.component';
 
-const PageTemplate = ( { pageContext } ) => {
+const PageTemplate = ( { location, pageContext } ) => {
 
 	const postId = pageContext?.databaseId;
     setTimeout(() => {
@@ -9,7 +9,7 @@ const PageTemplate = ( { pageContext } ) => {
     }, 500);
 
 	return (
-        <Layout>
+        <Layout location={location}>
             <section className="default-page fink-grid-container">
                 <h1>{pageContext.title}</h1>
                 <div className="default-page-content" dangerouslySetInnerHTML={{__html: pageContext.content }}></div>

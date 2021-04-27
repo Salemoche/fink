@@ -13,22 +13,6 @@
         transform: translateY(-100%);
     }
 
-    &.header-navigation-landing {
-        top: 50%;
-        transform: translateY(-50%);
-
-        .header-navigation-list .header-navigation-list-item {
-            font-size: 7vw;
-            line-height: 1;
-
-
-            &.header-navigation-about {
-                text-align: right;
-                margin-right: 3vw;
-            }
-        }
-    }
-
     .header-navigation-list {
         list-style: none;
         padding: 0 map_get( $spacing, "regular" );;

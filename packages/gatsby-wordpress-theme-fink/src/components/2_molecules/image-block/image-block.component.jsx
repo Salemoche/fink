@@ -25,7 +25,7 @@ const ImageBlock = ( props ) => {
     const captionClass = props.images[0]?.hasCaption ? ' with-caption' : '' 
 
     return (
-        <div className={`image-block content-item-${index} block${captionClass} ${imageMode}`}>
+        <div className={`image-block content-item-${index} block${captionClass} ${imageMode} fink-grid-item fink-grid-item-1-7`}>
           { contentImage?.image ? 
             <GatsbyImage image={contentImage.image} alt={props.images[0].altText || 'project image'}></GatsbyImage>
           :

@@ -18,7 +18,7 @@ import Layout from '../../components/1_atoms/layout/layout.component';
 
 // }
 
-const PostTemplate = ( { pageContext } ) => {
+const PostTemplate = ( {location, pageContext } ) => {
 
     const acfProject = pageContext.acfProject;
     const acfContent = pageContext.acfContent;
@@ -36,7 +36,7 @@ const PostTemplate = ( { pageContext } ) => {
     // const [ images, updateImages ] = useState{[]}
 
 	return (
-        <Layout>
+        <Layout location={location}>
             <main>
                 <ProjectHeader title={title} projectDetailImage={projectDetailImage} />
                 { sections && 

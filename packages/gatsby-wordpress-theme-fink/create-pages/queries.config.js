@@ -128,7 +128,15 @@ module.exports = {
                                         }
                                     }
                                 }
-                                projectOverviewImage {
+                                projectOverviewImageTexture {
+                                    altText
+                                    localFile {
+                                        childImageSharp {
+                                        gatsbyImageData
+                                        }
+                                    }
+                                }
+                                projectOverviewImageNoTexture {
                                     altText
                                     localFile {
                                         childImageSharp {
@@ -178,7 +186,15 @@ module.exports = {
                                     }
                                 }
                             }
-                            projectOverviewImage {
+                            projectOverviewImageTexture {
+                                altText
+                                localFile {
+                                    childImageSharp {
+                                    gatsbyImageData
+                                    }
+                                }
+                            }
+                            projectOverviewImageNoTexture {
                                 altText
                                 localFile {
                                     childImageSharp {

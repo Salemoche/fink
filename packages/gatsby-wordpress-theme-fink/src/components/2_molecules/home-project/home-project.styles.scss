@@ -63,15 +63,15 @@
             font-size: 128px;
             line-height: 1;
             color: white;
-            grid-column-start: 2;
-            grid-column-end: 7;
+            // grid-column-start: 2;
+            // grid-column-end: 7;
             opacity: 0;
             transition: $transition-extra-long;
         }
 
         .home-project-meta {
-            grid-column-start: 2;
-            grid-column-end: 12;
+            // grid-column-start: 2;
+            // grid-column-end: 12;
             opacity: 0;
             transition: $transition-extra-long;
 
@@ -141,6 +141,20 @@
             .home-project-meta {
                 opacity: 1;
                 transition: $transition-extra-long-delayed;
+            }
+        }
+    }
+
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+
+        height: 50vh;
+
+        .home-project-content {
+
+            width: 100%;
+    
+            h2 {
+                font-size: 64px;
             }
         }
     }
