@@ -1,3 +1,4 @@
 /node_modules
 /packages/gatsby-wordpress-theme-fink/node_modules
 /site/node_modules
+/site/node_modules/public
