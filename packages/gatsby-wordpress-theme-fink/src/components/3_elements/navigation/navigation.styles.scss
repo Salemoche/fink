@@ -5,10 +5,77 @@
     top: 0;
     left: 0;
     z-index: $z-index-navigation;
+    width: 100%;
+    transition: $transition-long;
+    pointer-events: none;
+
+    &.header-navigation-invisible {
+        transform: translateY(-100%);
+    }
+
+    &.header-navigation-landing {
+        top: 50%;
+        transform: translateY(-50%);
+
+        .header-navigation-list .header-navigation-list-item {
+            font-size: 7vw;
+            line-height: 1;
+
+
+            &.header-navigation-about {
+                text-align: right;
+                margin-right: 3vw;
+            }
+        }
+    }
 
     .header-navigation-list {
+        list-style: none;
+        padding: 0 map_get( $spacing, "regular" );;
+        display: flex;
+        justify-content: space-between;
+
         .header-navigation-list-item {
+            margin: 0;    
+            font-size: 40px;
+            height: 56px;
+            text-transform: uppercase;
+            transition: $transition-long;
+            pointer-events: all;
             
+
+            a {
+                color: $white;
+                text-decoration: none;
+            }
+
+            &.header-navigation-fink {
+            }
+
+            &.header-navigation-about {
+                text-align: right;
+                margin-left: auto;
+                margin-right: map_get( $spacing, "large" );
+
+                a {
+                    font-weight: 200;
+                }
+            }
+
+            &.header-navigation-design {
+                text-align: right;
+
+                a {
+                    font-weight: 200;
+                }
+            }
+
+            &.current, &:hover {
+                a {
+                    font-weight: 500;
+                }
+            }
+
         }
     }
 }

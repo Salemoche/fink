@@ -17,16 +17,17 @@ import PlaceholderImage from '../../../images/Image-Placeholder.png'
 import { Link } from 'gatsby';
 
 
-const OverviewProject = ( { title, categories, slug, acfProject } ) => {
+const OverviewProject = ( {project: { title, categories, slug, acfProject }, index} ) => {
 
 
 	const overviewImageTexture = getGatsbyImage(acfProject.homeImageTexture);
 	const overviewImageNoTexture = getGatsbyImage(acfProject.homeImageNoTexture) || overviewImageTexture;
+	const alignment = index % 2 !== 0 ? 'text-left' : 'text-right';
 
 	console.log(slug)
 
 		return (
-			<div className="overview-project">
+			<div className={`overview-project ${alignment}`}>
 				<Link to={`/${slug}`}>
 					<div className="overview-project-background">
 						{ overviewImageTexture?.image ? 
@@ -35,7 +36,7 @@ const OverviewProject = ( { title, categories, slug, acfProject } ) => {
 							<img src={PlaceholderImage} alt="Placeholder" srcSet=""/>
 						}
 						{ overviewImageTexture?.image && overviewImageNoTexture?.image ? 
-							<GatsbyImage className="overview-project-background-texture" image={overviewImageNoTexture.image} alt={overviewImageNoTexture.altText}></GatsbyImage>
+							<GatsbyImage className="overview-project-background-no-texture" image={overviewImageNoTexture.image} alt={overviewImageNoTexture.altText}></GatsbyImage>
 						:
 							""
 						}

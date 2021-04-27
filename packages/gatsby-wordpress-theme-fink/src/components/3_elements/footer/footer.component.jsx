@@ -11,7 +11,7 @@ import { StaticQuery, graphql } from "gatsby";
 const Footer = ( { menu, siteOptions } ) => {
     // console.log(menu)
     return (
-        <footer className="footer">
+        <footer className="footer fink-grid-container">
             <div className="footer-contact-info" dangerouslySetInnerHTML={{__html: siteOptions.contact}}>
             </div>
             <nav className="footer-navigation">

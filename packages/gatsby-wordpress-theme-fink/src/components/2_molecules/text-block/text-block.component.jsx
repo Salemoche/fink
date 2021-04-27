@@ -19,7 +19,7 @@ import classNames from 'classnames';
 const TextBlock = ( {text, index} ) => {
 
     return (
-        <div className={('text-block', `content-item-${index}`)} dangerouslySetInnerHTML={{ __html: text }}></div>
+        <div className={`text-block content-item-${index} block`} dangerouslySetInnerHTML={{ __html: text }}></div>
     )
 }
 

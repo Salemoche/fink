@@ -1,0 +1,101 @@
+@import '../../sass/essentials';
+
+.work-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    // padding-top: $header-height;
+
+    h1 {
+        width: 100%;
+    }
+
+    .overview-project {
+        width: 50%;
+        position: relative;
+        min-height: calc(50vw / 1.8);
+
+        .overview-project-background {
+            font-size: 0;
+
+            .overview-project-background-texture, .overview-project-background-no-texture {
+                transform: scaleX(-1);
+            }
+
+            .overview-project-background-texture {
+                opacity: 0;
+                transition: $transition-extra-long;
+            }
+
+            .overview-project-background-no-texture {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+            }
+        }
+
+        .overview-project-content {
+
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            column-gap: 16px;
+            justify-items: stretch;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            top: 0;
+            padding: map_get( $spacing, "regular" );
+
+            h2 {
+                grid-column-start: 2;
+                grid-column-end: 6;
+                color: white;
+                font-size: 64px;
+                line-height: 1;
+                margin-bottom: 0;
+                opacity: 0;
+                transition: $transition-extra-long;
+            }
+        }
+
+        &.text-right {
+            .overview-project-content {
+                h2 {
+                    text-align: right;
+                }
+            } 
+        }
+
+        &.extra-tile {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            column-gap: 16px;
+            justify-items: stretch;
+            align-items: center;
+            align-content: center;
+            padding: map_get( $spacing, "regular" );
+
+            > * {
+                grid-column-start: 2;
+                grid-column-end: 6;
+            }
+        }
+
+        &:hover {
+            .overview-project-background-texture {
+                opacity: 1;
+                transition: $transition-extra-long;
+            }
+
+            .overview-project-content h2 {
+                opacity: 1;
+                transition: $transition-extra-long-delayed;
+            }
+        }
+    }
+}

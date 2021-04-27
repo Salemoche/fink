@@ -13,17 +13,21 @@ import PlaceholderImage from '../../../images/Image-Placeholder.png'
 
 const ProjectHeader = ( {projectDetailImage, title} ) => {
 
+    // setTimeout(() => {
+    //     console.log(props)
+    // }, 400);
+
     return (
-        <header className="project-header">
+        <div className="project-header fink-grid-container">
             <div className="project-header__image">
                 { projectDetailImage?.image ? 
-                    <GatsbyImage image={projectDetailImage.image} alt={projectDetailImage.altText}></GatsbyImage>
+                    <GatsbyImage className="project-header-image" image={projectDetailImage.image} alt={projectDetailImage.altText}></GatsbyImage>
                 :
                     <img src={PlaceholderImage} alt="Placeholder" srcSet=""/>
                 }
             </div>
-            <h1>{ title }</h1>
-        </header>
+            <h1 className="header-title">{ title }</h1>
+        </div>
     )
 }
 

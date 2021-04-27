@@ -1,0 +1,45 @@
+@import '../../../sass/essentials';
+
+footer {
+    padding: map_get( $spacing, "regular" );
+    padding-top: map_get( $spacing, "extra-large" );
+    font-weight: 300;
+
+    a {
+        color: $black;
+    }
+
+    .footer-contact-info {
+        grid-column-start: 2;
+        grid-column-end: 7;
+
+        * {
+            margin-bottom: 0;
+        }
+    }
+
+    .footer-navigation {
+        grid-column-start: 7;
+        grid-column-end: 12;
+        align-self: flex-end;
+
+        .footer-navigation-list {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+
+            .footer-navigation-list-item {
+                width: 100%;
+                text-align: right;
+            }
+        }
+    }
+
+    .footer-copyright {
+        grid-column-start: 1;
+        grid-column-end: 13;
+        text-align: center;
+    }
+}

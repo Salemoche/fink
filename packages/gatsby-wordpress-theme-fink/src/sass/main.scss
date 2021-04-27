@@ -11,9 +11,15 @@
 *========================================
 */
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     font-family: $font__main;
     font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;  
 }
 
 section {
@@ -24,4 +30,95 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     text-transform: uppercase;
     margin: 0;
+    margin-bottom: map_get( $spacing, "regular" );
+}
+
+h1 {
+    font-size: 72px;
+    line-height: 72px;
+}
+
+h2 {
+    font-size: 72px;
+    line-height: 72px; 
+}
+
+h3, .lead {
+    font-size: 36px;
+    line-height: 40px;  
+}
+
+h3 {
+    font-size: 24px;
+    line-height: 28px;  
+}
+
+p {
+    margin: 0;
+    margin-bottom: map_get( $spacing, "regular" );
+}
+
+a {
+    color: $black;
+}
+
+.lead {
+    color: white;
+    font-weight: 300;
+}
+
+.header-title {
+    font-size: 128px;
+    line-height: 1;
+    color: white;
+}
+
+.fink-grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 16px;
+    justify-items: stretch;
+}
+
+.default-page {
+    padding: map_get( $spacing, "regular" );
+    padding-top: $header-height;
+    padding-top: 120px;
+
+    > * {
+        grid-column-start: 2;
+        grid-column-end: 12;
+    }
+}
+
+.layout {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &.layout-home {
+        scroll-snap-type: y proximity;
+    
+        .landing, .home-partners {
+            scroll-snap-align: start;
+        }
+    
+        .footer {
+            scroll-snap-align: end;
+        }
+    }
+
+    &-datenschutzerklaerung,
+    &-impressum {
+        .header-navigation .header-navigation-list .header-navigation-list-item a {
+            color: black;
+        }
+    }
 }

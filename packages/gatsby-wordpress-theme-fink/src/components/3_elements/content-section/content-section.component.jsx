@@ -8,9 +8,14 @@ import classNames from 'classnames';
 import TextBlock from '../../2_molecules/text-block/text-block.component';
 import ImageBlock from '../../2_molecules/image-block/image-block.component';
 
+//Styles 
+import './content-section.styles.scss';
+
 const ContentSection = ( props ) => {
 
     const content = props.content;
+    if (!content) return ''
+
     const isFullImage = content.length == 1 && content[0].fieldGroupName == 'post_Acfcontent_sections_Content_ImageLayout';
     const sectionContent = {}
 
@@ -19,7 +24,10 @@ const ContentSection = ( props ) => {
 
       const element = array[index];
 
-      console.warn(element.fieldGroupName)
+      setTimeout(() => {
+          console.log(element)
+      }, 400);
+
       return {
         index,
         contentType: element.fieldGroupName.split('post_Acfcontent_sections_Content_')[1],
@@ -28,7 +36,7 @@ const ContentSection = ( props ) => {
           {
             image: element?.image,
             hasCaption: element?.imageCaption && element?.imageCaption != 'no',
-            caption: getCaption(element?.imageCaption, element?.caption),
+            caption: getCaption(element?.imageCaption, element?.image?.caption),
             altText: element?.altText
           } 
         ], 
@@ -58,6 +66,7 @@ const ContentSection = ( props ) => {
     }
 
     const getContent = (contentObject) => {
+      if (!contentObject) return
       if (contentObject.contentType == 'TextLayout') {
         return <TextBlock text={contentObject.text}/>
       } else if (contentObject.contentType == 'ImageLayout') {
@@ -74,17 +83,17 @@ const ContentSection = ( props ) => {
     // console.log( sectionContent.left.images[0] )
 
     return (
-        <section className={classNames('content-section')}>
+        <section className={classNames('content-section', 'fink-grid-container')}>
             { isFullImage ?
-              <div className="content-section__column content-section__column-full">
+              <div className="content-section__column content-section__column-full fink-grid-item">
               { getContent(sectionContent.full ) }
               </div>
             :
             <React.Fragment>
-              <div className="content-section__column content-section__column-left">
+              <div className="content-section__column content-section__column-left fink-grid-item">
                 { getContent(sectionContent.left) }
               </div>
-              <div className="content-section__column content-section__column-left">
+              <div className="content-section__column content-section__column-right fink-grid-item">
                 { getContent(sectionContent.right) }
               </div>
             </React.Fragment>

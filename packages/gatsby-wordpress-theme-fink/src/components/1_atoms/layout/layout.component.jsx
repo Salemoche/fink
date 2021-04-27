@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useState, useEffect, useRef }  from 'react';
 
 // Styles
 import './layout.styles.scss'
@@ -10,6 +10,51 @@ import { node } from 'prop-types';
 
 
 const Layout = ( {children} ) => {
+
+    const [headerMode, setHeaderMode] = useState('regular');
+    const [headerVisibility, setHeaderVisibility] = useState('visible');
+    const prevScrollY = useRef(0);
+    const pathname = window.location.pathname.split('/')[1] || 'home';
+
+    useEffect(() => {
+
+        const layout = document.querySelector('.layout');
+
+        const handleScroll = () => {
+            const currentScrollY = layout.scrollTop;
+
+            handleLandingMode(currentScrollY);
+
+            if (prevScrollY.current < currentScrollY && headerVisibility == 'visible') {
+                if (pathname == 'home' && currentScrollY > window.innerHeight) {
+                    setHeaderVisibility('invisible');
+                } else if (pathname != 'home') {
+                    setHeaderVisibility('invisible');
+                }
+            }
+            if (prevScrollY.current > currentScrollY &&  headerVisibility == 'invisible') {
+                setHeaderVisibility('visible');
+            }
+    
+            prevScrollY.current = currentScrollY;
+            // console.log(headerMode, headerVisibility, currentScrollY);
+        };
+
+        const handleLandingMode = (scrollDist = prevScrollY) => {
+            if (pathname == 'home' && (scrollDist < 20 || !scrollDist)) {
+                setHeaderMode('landing');
+            } else {
+                setHeaderMode('regular');
+            }
+            // console.log(pathname == 'home', scrollDist, scrollDist < 20)
+        }
+
+        handleLandingMode(prevScrollY.current);
+
+        layout.addEventListener("scroll", handleScroll, { passive: true });
+    
+        return () => layout.removeEventListener("scroll", handleScroll);
+    }, [headerMode, headerVisibility]);
 
     return (
         <StaticQuery
@@ -53,8 +98,8 @@ const Layout = ( {children} ) => {
                 })
 
                 return (
-                    <div className="layout">
-                        {menuArray?.hauptmenu ? <Navigation {...menuArray?.['hauptmenu']}/> : ''}
+                    <div className={`layout layout-${pathname}`}>
+                        {menuArray?.hauptmenu ? <Navigation menu={menuArray?.['hauptmenu']} headerMode={headerMode} headerVisibility={headerVisibility}/> : ''}
                             {children}
                         {menuArray?.['footer-menu'] ? <Footer menu={menuArray?.['footer-menu']} siteOptions={siteOptions}/> : ''}
                     </div>

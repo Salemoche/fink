@@ -18,17 +18,21 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 const ImageBlock = ( props ) => {
 
     const contentImage = getGatsbyImage(props.images[0].image)
+    if (!contentImage) return ''
     const {index} = props;
+    const {width, height} = contentImage;
+    const imageMode = width > height ? 'landscape' : 'portrait';
+    const captionClass = props.images[0]?.hasCaption ? ' with-caption' : '' 
 
     return (
-        <div className={classNames('image-block', `content-item-${index}`)}>
-          { contentImage.image ? 
-            <GatsbyImage image={contentImage.image} alt={props.images[0].altText}></GatsbyImage>
+        <div className={`image-block content-item-${index} block${captionClass} ${imageMode}`}>
+          { contentImage?.image ? 
+            <GatsbyImage image={contentImage.image} alt={props.images[0].altText || 'project image'}></GatsbyImage>
           :
             <img src={PlaceholderImage} alt="Placeholder" srcSet=""/>
           }
-          { props.images[0].hasCaption ?
-            <div className="image-block__caption">{props.images[0].caption}</div>
+          { props.images[0]?.hasCaption ?
+            <div className="image-block__caption" dangerouslySetInnerHTML={{__html: props.images[0].caption}}></div>
           :
             ""
           }

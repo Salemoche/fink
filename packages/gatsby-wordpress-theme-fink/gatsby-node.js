@@ -7,12 +7,13 @@ exports.onPostBuild = ({ reporter }) => {
 
 // const createAllPages = require( './create-pages/pages');
 // const createPostPages = require( './create-pages/posts');
-const createFrontPage = require( './create-pages/front-page');
+// const createFrontPage = require( './create-pages/front-page');
 const createSpecialPages = require( './create-pages/create-pages.config');
 
 // Components 
-const frontPageTemplate = require.resolve(`./src/templates/front-page/front-page.js`);
+// const frontPageTemplate = require.resolve(`./src/templates/front-page/front-page.js`);
 const workPageTemplate = require.resolve(`./src/templates/work-page/work-page.js`);
+const aboutPageTemplate = require.resolve(`./src/templates/about-page/about-page.js`);
 const singlePostTemplate = require.resolve(`./src/templates/post/post.js`);
 const singlePageTemplate = require.resolve(`./src/templates/page/page.js`);
 
@@ -20,8 +21,9 @@ exports.createPages = async ( { actions, graphql }) => {
     // await createAllPages( { actions, graphql } );
     // await createPostPages( { actions, graphql } );
     // await createSpecialPages( { queryName: 'GET_ALL', component: frontPageTemplate, isTemplate: true, slug: 'home', debug: true, actions, graphql } );
-    await createSpecialPages( { queryName: 'GET_FRONT_PAGE', component: frontPageTemplate, isTemplate: true, slug: 'home', actions, graphql } );
+    // await createSpecialPages( { queryName: 'GET_FRONT_PAGE', component: frontPageTemplate, isTemplate: true, slug: 'home', actions, graphql } );
     await createSpecialPages( { queryName: 'GET_WORK_PAGE', component: workPageTemplate, isTemplate: true, slug: 'design', actions, graphql } );
+    await createSpecialPages( { queryName: 'GET_ABOUT_PAGE', component: aboutPageTemplate, isTemplate: true, slug: 'about', actions, graphql } );
     await createSpecialPages( { queryName: 'GET_PAGES', component: singlePageTemplate, actions, graphql } );
     await createSpecialPages( { queryName: 'GET_POSTS', component: singlePostTemplate, actions, graphql } );
     // await createFrontPage( { actions, graphql } );

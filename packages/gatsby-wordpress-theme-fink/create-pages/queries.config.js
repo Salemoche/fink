@@ -15,6 +15,7 @@ module.exports = {
                     partners {
                         link
                         logo {
+                            link
                             altText
                             localFile {
                                 childImageSharp {
@@ -28,6 +29,7 @@ module.exports = {
                             title
                             id
                             slug
+                            excerpt
                             acfProject {
                                 projectMetaLine
                                 homeImageNoTexture {
@@ -60,6 +62,41 @@ module.exports = {
             }
         }
     `,
+    GET_ABOUT_PAGE: `
+        query {
+            wpPage(slug: {eq: "about"}) {
+                slug
+                id
+                title
+                acfAbout {
+                    fieldGroupName
+                    aboutText
+                    aboutTitle
+                    aboutImage {
+                        altText
+                        localFile {
+                            childImageSharp {
+                                gatsbyImageData
+                            }
+                        }
+                    }
+                    contact {
+                        contactItem
+                    }
+                    pressText
+                    pressTitle
+                    pressImage {
+                        altText
+                        localFile {
+                            childImageSharp {
+                                gatsbyImageData
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `,
     GET_WORK_PAGE: `
         query {
             wpPage(slug: {eq: "work"}) {
@@ -84,6 +121,14 @@ module.exports = {
                                     }
                                 }
                                 homeImageTexture {
+                                    altText
+                                    localFile {
+                                        childImageSharp {
+                                        gatsbyImageData
+                                        }
+                                    }
+                                }
+                                projectOverviewImage {
                                     altText
                                     localFile {
                                         childImageSharp {
@@ -152,6 +197,7 @@ module.exports = {
                                     }
                                     ... on WpPost_Acfcontent_sections_Content_ImageLayout {
                                         fieldGroupName
+                                        imageCaption
                                         image {
                                             altText
                                             caption
@@ -179,6 +225,7 @@ module.exports = {
                         uri
                         slug
                         id
+                        content
                     }
                 }
             }
@@ -313,6 +360,7 @@ module.exports = {
                         uri
                         slug
                         id
+                        content
                     }
                 }
             }

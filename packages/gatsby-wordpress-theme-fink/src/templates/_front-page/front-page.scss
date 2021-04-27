@@ -1,0 +1,16 @@
+@import '../../sass/essentials';
+
+.home-partners {
+    margin-top: map_get( $spacing, "extra-large" );
+
+    .home-partners-container {
+
+        display: flex;
+        flex-wrap: wrap;
+        
+        .home-partner {
+            width: 25%;
+
+        }
+    }
+}

@@ -11,6 +11,7 @@ module.exports = ({ wordPressUrl, frontendUrl }) => ({
 		`gatsby-plugin-sharp`,
 		`gatsby-plugin-sass`,
 		`gatsby-plugin-image`,
+		`gatsby-plugin-react-svg`,
 		// `gatsby-plugin-layout`,
 		{
 			resolve: `gatsby-source-filesystem`,

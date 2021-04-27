@@ -13,9 +13,14 @@ import PropTypes from 'prop-types';
 
 const Landing = ( { mediaItemUrl } ) => {
 
+    const scrollDown = () => {
+      document.querySelector('.layout').scrollTop = window.innerHeight;
+    }
+
     return (
         <section className="landing">
             <video src={mediaItemUrl} autoPlay={true} loop={true} muted={true}></video>
+            <button className="scroll-down-button" onClick={scrollDown}>▾</button>
         </section>
     )
 }

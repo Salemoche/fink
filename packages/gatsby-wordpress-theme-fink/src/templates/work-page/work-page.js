@@ -11,7 +11,8 @@ import { getGatsbyImage } from '../../utils/helpers';
 import Layout from '../../components/1_atoms/layout/layout.component';
 import OverviewProject from '../../components/2_molecules/overview-project/overview-project.component';
 
-// Misc
+// Styling
+import '../../sass/3_modules/_work-page.scss'
 
 // const FrontPage = ({pageContext}) => {
 const WorkPage = (props) => {
@@ -21,13 +22,11 @@ const WorkPage = (props) => {
 
     return (
         <Layout>
-            <h1>{title}</h1>
             <section className="work-container">
-                here's the work
-                {projects.map( project => (
-                    <OverviewProject key={project.id} {...project} />
+                {projects.map( (project, index) => (
+                    <OverviewProject key={project.id} project={project} index={index} />
                 ))}
-                <div className="extra-tile" dangerouslySetInnerHTML={{__html: extraTile }}></div>
+                <div className="extra-tile overview-project" dangerouslySetInnerHTML={{__html: extraTile }}></div>
             </section>
         </Layout>
     )

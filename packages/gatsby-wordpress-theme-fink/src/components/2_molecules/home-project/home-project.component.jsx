@@ -18,18 +18,15 @@ import { Link } from 'gatsby';
 import { classNames } from 'classnames';
 
 
-const HomeProject = ( {key, project: { title, categories, slug, acfProject, index }} ) => {
-
+const HomeProject = ( {project: { title, categories, slug, acfProject, index, excerpt }} ) => {
 
 	const homeImageTexture = getGatsbyImage(acfProject.homeImageTexture);
 	const homeImageNoTexture = getGatsbyImage(acfProject.homeImageNoTexture) || homeImageTexture;
-	const alignment = index % 2 == 0 ? 'text-left' : 'text-right';
-
-	console.log(key)
+	const alignment = index % 2 === 0 ? 'text-left' : 'text-right';
 
 		return (
 			<section className={`home-project ${alignment}`}>
-				<Link to={`/${slug}`}>
+				<Link className="home-project-link" to={`/${slug}`}>
 					<div className="home-project-background">
 						{ homeImageTexture?.image ? 
 							<GatsbyImage className="home-project-image home-project-image-texture" image={homeImageTexture.image} alt={homeImageTexture.altText}></GatsbyImage>
@@ -42,17 +39,22 @@ const HomeProject = ( {key, project: { title, categories, slug, acfProject, inde
 							""
 						}
 					</div>
-					<div className="home-project-content"> 
+					<div className="home-project-content fink-grid-container"> 
 						<h2>{ title }</h2>
-						<div className="home-project-meta">
+						<div className="home-project-meta lead">
 							{ acfProject.projectMetaLine ?
-								<div className="home-project-meta-line">{ acfProject.projectMetaLine }{ categories.nodes.length > 0 ? ' | ' : '' }</div>
+								<div className="home-project-meta-line">{ acfProject.projectMetaLine }</div>
 							:
 								""
 							}
-							{categories.nodes.map(category => {
-								return  <div className="home-project-categories" key={category.id}>{category.name}</div>
+							{categories.nodes.map((category, index) => {
+								return  <div className="home-project-categories" key={category.id}>{ acfProject?.projectMetaLine?.length > 0 ? '| ' : '' }{category.name} </div>
 							})}
+							{ excerpt ?
+								<div className="home-project-excerpt">{ excerpt }</div>
+							:
+								""
+							}
 						</div>
 					</div>
 				</Link>

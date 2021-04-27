@@ -7,48 +7,69 @@ import { graphql } from "gatsby"
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { getGatsbyImage } from '../utils/helpers';
 
+// Styling
+
+import '../sass/3_modules/_front-page.scss';
+
 //Components
 import HomeProject from '../components/2_molecules/home-project/home-project.component';
 import Layout from '../components/1_atoms/layout/layout.component';
+import Landing from '../components/2_molecules/landing/landing.component';
+
+// import 
 
 // Misc
 
-const IndexPage = ({data: {wpPage: {title, acfStart: { partners, projects, partnersTitle }}}}) => {
-    console.log(title, partnersTitle)
+// const FrontPage = ({pageContext}) => {
+const FrontPage = ({data: { wpPage }}) => {
+    // setTimeout(() => {
+    //     console.log(wpPage)
+    // }, 400);
+    const {title, acfStart: { partners, projects, partnersTitle, landingVideo }} = wpPage;
+    // console.log(partners)
+
     return (
         <Layout>
-            <h1>This is comming from the index</h1>
-            {projects.map( project => (
-                <HomeProject key={project.id} {...project} />
+            <Landing {...landingVideo}/>
+            {projects.map( (project, index) => (
+                <HomeProject key={index} project={{index, ...project}} />
             ))}
-            <section className="home-partners">
+            <section className="home-partners fink-grid-container">
                 <h2>{partnersTitle}</h2>
-                {partners.map( partner => {
-
+                <div className="home-partners-container">
+                {partners.map( (partner, index) => {
                     const logo = getGatsbyImage(partner.logo);
                     return (
-                        <a href={partner.link} className="home-partner" key={partner.logo.id}>
-                            <GatsbyImage className="home-project-background-texture" image={logo.image} alt={logo.altText}></GatsbyImage>
+                        <a href={partner.link} className="home-partner" key={index}>
+                            <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage>
+                            {/* <img className="home-project-background-texture" src={partner.logo.link} alt={partner.altText}/> */}
                         </a>
                     )
                 })} 
+                </div>
             </section>
         </Layout>
     )
 }
 
-export default IndexPage;
+export default FrontPage;
+
 
 export const pageQuery = graphql`
     query {
         wpPage(isFrontPage: {eq: true}) {
+            slug
             id
             title
             acfStart {
+                landingVideo {
+                    mediaItemUrl
+                }
                 partnersTitle
                 partners {
                     link
                     logo {
+                        link
                         altText
                         localFile {
                             childImageSharp {
@@ -68,7 +89,7 @@ export const pageQuery = graphql`
                                 altText
                                 localFile {
                                     childImageSharp {
-                                    gatsbyImageData
+                                        gatsbyImageData
                                     }
                                 }
                             }
@@ -76,7 +97,7 @@ export const pageQuery = graphql`
                                 altText
                                 localFile {
                                     childImageSharp {
-                                    gatsbyImageData
+                                        gatsbyImageData
                                     }
                                 }
                             }
