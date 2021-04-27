@@ -1,0 +1,27 @@
+$content-width: 1240px;
+$content-width--narrow: 768px;
+
+$mq-breakpoints: (
+	small: 420px,
+	medium: 768px,
+	large: 1024px,
+	xlarge: $content-width
+) !default;
+
+$spacing: (
+	"extra-small": 4px,
+	"small": 8px,
+	"regular": 16px,
+	"large": 32px,
+	"extra-large": 64px,
+	"extra-extra-large": 128px
+);
+
+// $font-sizes: (
+// 	'menu'
+// );
+
+$transition: .3s;
+$border-radius: 8px;
+$border-radius-small: 4px;
+$box-shadow: 5px 0px 15px #00000012;

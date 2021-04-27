@@ -14,7 +14,7 @@ const Navigation = (menu) => {
     return (
         <header>
             <nav className="header-navigation">
-                <ul>
+                <ul className="header-navigation-list">
                     { menu.menuItems.nodes.map(menuItem => (
                         <li className={`header-navigation-list-item header-navigation-${menuItem.label.toLowerCase()}`} key={menuItem.order}>
                             <Link to={menuItem.url}>{menuItem.label}</Link>

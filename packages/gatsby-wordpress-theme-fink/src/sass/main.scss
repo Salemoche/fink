@@ -1,3 +1,27 @@
+@import '~normalize-scss/sass/normalize/import-now';
 @import '0_settings/settings';
 @import '1_tools/tools';
 @import '2_generic/generic';
+
+/**
+*========================================
+*	
+*	Atoms
+*	
+*========================================
+*/
+
+html {
+    font-family: $font__main;
+    font-weight: 500;
+}
+
+section {
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0;
+}

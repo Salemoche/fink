@@ -8,6 +8,9 @@ module.exports = {
                 id
                 title
                 acfStart {
+                    landingVideo {
+                        mediaItemUrl
+                    }
                     partnersTitle
                     partners {
                         link
@@ -64,6 +67,7 @@ module.exports = {
                 id
                 title
                 acfWork {
+                    extraTile
                     projects {
                         ... on WpPost {
                             title

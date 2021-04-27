@@ -20,7 +20,7 @@ exports.createPages = async ( { actions, graphql }) => {
     // await createAllPages( { actions, graphql } );
     // await createPostPages( { actions, graphql } );
     // await createSpecialPages( { queryName: 'GET_ALL', component: frontPageTemplate, isTemplate: true, slug: 'home', debug: true, actions, graphql } );
-    await createSpecialPages( { queryName: 'GET_FRONT_PAGE', component: frontPageTemplate, isTemplate: true, slug: '', actions, graphql } );
+    await createSpecialPages( { queryName: 'GET_FRONT_PAGE', component: frontPageTemplate, isTemplate: true, slug: 'home', actions, graphql } );
     await createSpecialPages( { queryName: 'GET_WORK_PAGE', component: workPageTemplate, isTemplate: true, slug: 'design', actions, graphql } );
     await createSpecialPages( { queryName: 'GET_PAGES', component: singlePageTemplate, actions, graphql } );
     await createSpecialPages( { queryName: 'GET_POSTS', component: singlePostTemplate, actions, graphql } );

@@ -51,8 +51,6 @@ const Layout = ( {children} ) => {
                 data.allWpMenu.edges.forEach( ({node}) => {
                     menuArray[node.slug] = node;
                 })
-                
-                console.log(siteOptions)
 
                 return (
                     <div className="layout">

@@ -1,0 +1,14 @@
+@import '../../../sass/essentials';
+
+.header-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $z-index-navigation;
+
+    .header-navigation-list {
+        .header-navigation-list-item {
+            
+        }
+    }
+}

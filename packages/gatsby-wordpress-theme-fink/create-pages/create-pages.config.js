@@ -30,7 +30,7 @@ module.exports = async ( props ) => {
 
     if (!props.component) { console.error('we need a component'); return }
     if (!props.queryName) { console.error('we need a queryName'); return }
-    if (props.slug == null && props.isTemplate) { console.error('we need a slug if it is a template'); return }
+    if (props.slug == null && !props.isHome && props.isTemplate) { console.error('we need a slug if it is a template'); return }
 
     const options = {
         queryName: null,
@@ -42,10 +42,11 @@ module.exports = async ( props ) => {
         debug: false,
         actions: null, 
         graphql: null,
+        isHome: false,
         ...props
     }
 
-    const { actions, graphql, queryName, slug, prefix, suffix, debug, component, isTemplate } = props;
+    const { actions, graphql, queryName, slug, prefix, suffix, debug, component, isTemplate, isHome } = props;
 
 	const { createPage } = actions;
 	const query = queries[queryName];
@@ -94,9 +95,12 @@ module.exports = async ( props ) => {
 			// If its not a custom template, create the page.
 			if ( !hasTemplate(page.slug) || (hasTemplate(page.slug) && isTemplate) ) {
 
+                let pageSlug = isHome ? '/' : slug ? `/${slug}` : `/${page.slug}`;
+                // console.warn(`----------------------------------------- The Slug for ${page.slug} is ${pageSlug} -----------------------------------------`)
+                
 				createPage( {
 					// path: `${ page.slug }`,
-					path: `/${slug || page.slug}`,
+					path: pageSlug,
 					// path: `home-new-method`,
 					component: slash( component ),
 					context: { ...page }, // pass single page data in context, so its available in the singlePagetTemplate in props.pageContext.
