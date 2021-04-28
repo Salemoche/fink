@@ -15,7 +15,7 @@ import AngleIcon from "../../../images/angle-down-light.svg"
 const Landing = ( { mediaItemUrl } ) => {
 
     const scrollDown = () => {
-      document.querySelector('.layout').scrollTop = window.innerHeight;
+      document.querySelector('.layout').scrollTop = 667;
     }
 
     return (

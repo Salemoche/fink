@@ -62,4 +62,22 @@
 
         }
     }
+
+
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+        
+
+        .header-navigation-list {
+
+            .header-navigation-list-item {
+                font-size: 7vw;
+                line-height: 1;
+    
+                &.header-navigation-about {
+                    text-align: right;
+                    margin-right: 3vw;
+                }
+            }
+        }
+    }
 }

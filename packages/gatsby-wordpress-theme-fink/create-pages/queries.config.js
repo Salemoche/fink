@@ -26,11 +26,12 @@ module.exports = {
                     }
                     projects {
                         ... on WpPost {
+                            excerpt
                             title
                             id
                             slug
-                            excerpt
                             acfProject {
+                                summary
                                 projectMetaLine
                                 homeImageNoTexture {
                                     altText

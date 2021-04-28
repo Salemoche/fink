@@ -34,10 +34,12 @@
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
     
         .home-partners-container {
+            padding-bottom: map_get( $spacing, "extra-large" );
+            padding-top: map_get( $spacing, "large" );
             
             .home-partner {
                 width: 50%;
-                padding-bottom: map_get( $spacing, "extra-large" );
+                margin-top: map_get( $spacing, "large" );
     
                 img {
                     transform: scale(1);                

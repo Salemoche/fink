@@ -38,4 +38,10 @@
 
         animation: blink 1.5s infinite alternate;
     }
+
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+        .scroll-down-button {
+            bottom: map_get( $spacing, "extra-extra-large" );
+        }
+    }
 }

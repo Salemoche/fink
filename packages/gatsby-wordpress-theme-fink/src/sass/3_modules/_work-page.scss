@@ -106,11 +106,13 @@
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
 
         min-height: 100vh;
+        align-content: flex-start;
 
         .overview-project {
             .overview-project-content {
                 h2 {
                     font-size: 24px;
+                    opacity: 1;
                 }
             }
 

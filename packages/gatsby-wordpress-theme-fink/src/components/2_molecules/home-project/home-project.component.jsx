@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 // Gatsby
 
@@ -18,14 +18,22 @@ import { Link } from 'gatsby';
 import { classNames } from 'classnames';
 
 
-const HomeProject = ( {project: { title, categories, slug, acfProject, index, excerpt }} ) => {
+const HomeProject = ( {project: { title, categories, slug, acfProject, index, excerpt}} ) => {
 
 	const homeImageTexture = getGatsbyImage(acfProject.homeImageTexture);
 	const homeImageNoTexture = getGatsbyImage(acfProject.homeImageNoTexture) || homeImageTexture;
 	const alignment = index % 2 === 0 ? 'text-left' : 'text-right';
+	const homeProject = useRef();
+	const [ activeClass, setActiveClass ] = useState('inactive')
+	// const { excerpt } = acfProject;
+
+	useEffect(() => {
+		console.log(homeProject.current.offsetTop);
+		console.log(document.querySelector('.layout').scrollTop)
+	}, [homeProject])
 
 		return (
-			<section className={`home-project ${alignment}`}>
+			<section className={`home-project ${alignment} ${activeClass}`} ref={homeProject}>
 				<Link className="home-project-link" to={`/${slug}`}>
 					<div className="home-project-background">
 						{ homeImageTexture?.image ? 
@@ -51,7 +59,7 @@ const HomeProject = ( {project: { title, categories, slug, acfProject, index, ex
 								return  <div className="home-project-categories" key={category.id}>{ acfProject?.projectMetaLine?.length > 0 ? '| ' : '' }{category.name} </div>
 							})}
 							{ excerpt ?
-								<div className="home-project-excerpt">{ excerpt }</div>
+								<div className="home-project-excerpt" dangerouslySetInnerHTML={{ __html: excerpt }}></div>
 							:
 								""
 							}

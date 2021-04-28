@@ -82,6 +82,7 @@ export const pageQuery = graphql`
                         title
                         id
                         slug
+                        excerpt
                         acfProject {
                             projectMetaLine
                             homeImageNoTexture {

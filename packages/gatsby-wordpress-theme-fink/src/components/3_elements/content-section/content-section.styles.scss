@@ -21,6 +21,7 @@
             .text-block {
                 // grid-column-start: 2;
                 // grid-column-end: 6;
+                // padding-top: map_get( $spacing, "extra-large" );
 
                 > * {
                     &:last-child {
@@ -67,14 +68,55 @@
         }
 
         &.content-section__column-full {
+            grid-column-start: 1;
+            grid-column-end: 13;
+
+            .image-block {
+                position: relative; 
+
+                .image-block__caption {
+                    position: absolute;
+                    bottom: 0;
+                    transform: translateY(100%);
+                    right: map_get( $spacing, "regular" );
+                    left: map_get( $spacing, "regular" );
+                }
+            }
             
         }
     }
 
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {
+
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-bottom: map_get( $spacing, "large" );
+
         .content-section__column {
+
             &.content-section__column-left, &.content-section__column-right {
                 grid-template-columns: repeat(6, 1fr);
+
+
+                .image-block {
+
+                    margin: map_get( $spacing, "regular" ) 0;
+
+                    .image-block__caption {
+                        position: relative;
+                        bottom: unset;
+                        transform: unset;
+                        left: unset;
+                        right: unset;
+                        margin-left: map_get( $spacing, "regular" );
+                        margin-right: map_get( $spacing, "regular" );
+                    }
+                }
+
+                .text-block {
+                    margin-left: map_get( $spacing, "regular" );
+                    margin-right: map_get( $spacing, "regular" );
+                }
             }
         }
     }

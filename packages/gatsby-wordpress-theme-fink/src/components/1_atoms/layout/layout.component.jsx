@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect, useRef }  from 'react';
+import React, { useState, useReducer, useEffect, useRef }  from 'react';
 
 // Styles
 import './layout.styles.scss'
@@ -8,6 +8,9 @@ import Footer from '../../3_elements/footer/footer.component';
 import { StaticQuery, graphql } from 'gatsby';
 import { node } from 'prop-types';
 import Loading from '../../2_molecules/loading/loading.component';
+import reducer from '../../../reducer/reducer';
+import initialState from '../../../reducer/state';
+import types from '../../../reducer/types';
 
 
 const Layout = ( {location, children} ) => {
@@ -19,6 +22,10 @@ const Layout = ( {location, children} ) => {
     const pathname = location.pathname.split('/')[1] || 'home';
     // console.log(props)
 
+
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+
     useEffect(() => {
 
         const layout = document.querySelector('.layout');
@@ -29,7 +36,7 @@ const Layout = ( {location, children} ) => {
             handleLandingMode(currentScrollY);
 
             if (prevScrollY.current < currentScrollY && headerVisibility == 'visible') {
-                if (pathname == 'home' && currentScrollY > window.innerHeight) {
+                if (pathname == 'home' && currentScrollY > 667) {
                     setHeaderVisibility('invisible');
                 } else if (pathname != 'home') {
                     setHeaderVisibility('invisible');
@@ -40,7 +47,7 @@ const Layout = ( {location, children} ) => {
             }
     
             prevScrollY.current = currentScrollY;
-            // console.log(headerMode, headerVisibility, currentScrollY);
+            dispatch({ type: types.SCROLL, value: currentScrollY})
         };
 
         const handleLandingMode = (scrollDist = prevScrollY) => {
