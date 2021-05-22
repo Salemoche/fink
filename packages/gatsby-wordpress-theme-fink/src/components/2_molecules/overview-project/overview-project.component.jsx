@@ -15,6 +15,7 @@ import { getGatsbyImage } from '../../../utils/helpers';
 import PropTypes from 'prop-types';
 import PlaceholderImage from '../../../images/Image-Placeholder.png'
 import { Link } from 'gatsby';
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 
 const OverviewProject = ( {project: { title, categories, slug, acfProject }, index} ) => {
@@ -27,7 +28,16 @@ const OverviewProject = ( {project: { title, categories, slug, acfProject }, ind
 
 		return (
 			<div className={`overview-project ${alignment}`}>
-				<Link to={`/${slug}`}>
+				<AniLink  
+					swipe 
+					direction="left" 
+					top="exit" 
+					duration={0.5} 
+					entryOffset={100} 
+					className="home-project-link" 
+					to={`/${slug}`}
+					onClick={() => console.log('clicked')}
+				>
 					<div className="overview-project-background">
 						{ overviewImageTexture?.image ? 
 							<GatsbyImage className={`overview-project-background-texture ${flipImageClass}`} image={overviewImageTexture.image} alt={overviewImageTexture.altText}></GatsbyImage>
@@ -43,7 +53,7 @@ const OverviewProject = ( {project: { title, categories, slug, acfProject }, ind
 					<div className="overview-project-content"> 
 						<h2 className="fink-grid-item fink-grid-item-2-6">{ title }</h2>
 					</div>
-				</Link>
+				</AniLink>
 			</div>
 		)
 }

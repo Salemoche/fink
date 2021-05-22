@@ -21,6 +21,9 @@ const GET_FRONT_PAGE = `
                             childImageSharp {
                                 gatsbyImageData
                             }
+                            childImageFluid {
+                                gatsbyImageData
+                            }
                         }
                     }
                 }
@@ -35,7 +38,10 @@ const GET_FRONT_PAGE = `
                                 altText
                                 localFile {
                                     childImageSharp {
-                                    gatsbyImageData
+                                        gatsbyImageData
+                                    }
+                                    childImageFluid {
+                                        gatsbyImageData
                                     }
                                 }
                             }
@@ -43,7 +49,10 @@ const GET_FRONT_PAGE = `
                                 altText
                                 localFile {
                                     childImageSharp {
-                                    gatsbyImageData
+                                        gatsbyImageData
+                                    }
+                                    childImageFluid {
+                                        gatsbyImageData
                                     }
                                 }
                             }

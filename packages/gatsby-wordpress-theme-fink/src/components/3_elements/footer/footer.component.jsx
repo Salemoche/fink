@@ -7,6 +7,7 @@ import './footer.styles.scss'
 // Gatsby
 import { Link } from 'gatsby';
 import { StaticQuery, graphql } from "gatsby";
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const Footer = ( { menu, siteOptions } ) => {
     // console.log(menu)
@@ -18,7 +19,17 @@ const Footer = ( { menu, siteOptions } ) => {
                 <ul className="footer-navigation-list">
                     { menu.menuItems.nodes.map(menuItem => (
                         <li className="footer-navigation-list-item" key={menuItem.order}>
-                            <Link to={menuItem.url}>{menuItem.label}</Link>
+                            <Link 
+                                // swipe 
+                                // direction="left" 
+                                // top="exit" 
+                                // duration={0.5} 
+                                // entryOffset={100} 
+                                // className="home-project-link" 
+                                to={menuItem.url}
+                            >
+                                {menuItem.label}
+                            </Link>
                         </li>
                     ))}
                 </ul>

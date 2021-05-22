@@ -19,9 +19,9 @@
             font-size: 0;
 
             .overview-project-background-texture, .overview-project-background-no-texture {
-                &.flip {
-                    transform: scaleX(-1);
-                }
+                // &.flip {
+                //     transform: scaleX(-1);
+                // }
             }
 
             .overview-project-background-texture {
@@ -87,8 +87,14 @@
                 grid-column-end: 6;
             }
         }
+    }
 
-        &:hover {
+
+    
+    @media screen and (min-width: map_get( $mq-breakpoints, "medium" )) {   
+
+
+        .overview-project:hover {
             .overview-project-background-texture {
                 opacity: 1;
                 transition: $transition-extra-long;
@@ -96,17 +102,38 @@
 
             .overview-project-content h2 {
                 opacity: 1;
-                transition: $transition-extra-long-delayed;
+                transition: $transition-extra-long-delayed-short;
+            }
+        }
+    }
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+
+        min-height: 100vh;
+        align-content: flex-start;
+        padding-top: $header-height-mobile;
+
+        .overview-project {
+            .overview-project-content {
+                h2 {
+                    font-size: 32px;
+                    opacity: 1;
+                }
+            }
+
+            &.extra-tile {
+
+                > * {
+                    grid-column-start: 1;
+                    grid-column-end: 7;
+                }
             }
         }
     }
 
 
     
-    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
-
-        min-height: 100vh;
-        align-content: flex-start;
+    @media screen and (max-width: map_get( $mq-breakpoints, "small" )) {   
+        justify-content: flex-start;
 
         .overview-project {
             .overview-project-content {
@@ -115,10 +142,30 @@
                     opacity: 1;
                 }
             }
-
             &.extra-tile {
                 width: 100%;
                 padding-top: map_get( $spacing, "large" );
+                padding-left: map_get( $spacing, "regular" );
+                padding-right: map_get( $spacing, "regular" );
+
+                > * {
+                    grid-column-start: 1;
+                    grid-column-end: 7;
+                }
+            }
+        }
+    }
+
+
+    
+    @media screen and (max-width: map_get( $mq-breakpoints, "xsmall" )) {   
+
+        .overview-project {
+            .overview-project-content {
+                h2 {
+                    font-size: 16px;
+                    opacity: 1;
+                }
             }
         }
     }

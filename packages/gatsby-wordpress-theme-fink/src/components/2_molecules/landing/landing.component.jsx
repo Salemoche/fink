@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Gatsby
 // import { GatsbyImage } from 'gatsby-plugin-image';
@@ -10,12 +10,12 @@ import './landing.styles.scss';
 // Misc
 import PropTypes from 'prop-types';
 import AngleIcon from "../../../images/angle-down-light.svg"
+// import DeviceDetector from "device-detector-js";
 // import PlaceholderImage from '../../../images/Image-Placeholder.png'
 
 const Landing = ( { mediaItemUrl } ) => {
-
     const scrollDown = () => {
-      document.querySelector('.layout').scrollTop = 667;
+      document.querySelector('.layout').scrollTop = document.documentElement.clientHeight;
     }
 
     return (

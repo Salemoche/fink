@@ -10,6 +10,7 @@ import ImageBlock from '../../2_molecules/image-block/image-block.component';
 
 //Styles 
 import './content-section.styles.scss';
+import SliderBlock from '../../2_molecules/slider-block/slider-block.component';
 
 const ContentSection = ( props ) => {
 
@@ -23,23 +24,31 @@ const ContentSection = ( props ) => {
     const getSectionContent = (array, index) => {
 
       const element = array[index];
+      if (!element) return {}
 
       setTimeout(() => {
           console.log(element)
       }, 400);
+      let images;
 
-      return {
-        index,
-        contentType: element.fieldGroupName.split('post_Acfcontent_sections_Content_')[1],
-        text: element?.text,
-        images: [ 
+      if (element?.image) {
+        images = [
           {
             image: element?.image,
             hasCaption: element?.imageCaption && element?.imageCaption != 'no',
             caption: getCaption(element?.imageCaption, element?.image?.caption),
             altText: element?.altText
           } 
-        ], 
+        ]
+      } else if (element?.slides) {
+        images = element?.slides
+      }
+
+      return {
+        index,
+        contentType: element.fieldGroupName ? element.fieldGroupName.split('post_Acfcontent_sections_Content_')[1] : 'TextLayout',
+        text: element?.text,
+        images
       }
     }
     
@@ -71,6 +80,9 @@ const ContentSection = ( props ) => {
         return <TextBlock text={contentObject.text}/>
       } else if (contentObject.contentType == 'ImageLayout') {
         return <ImageBlock {...contentObject}/>
+      } else if (contentObject.contentType == 'SliderLayout') {
+        // return <ImageBlock {...contentObject}/>
+        return <SliderBlock {...contentObject}/>
       }
     }
 

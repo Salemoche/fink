@@ -100,7 +100,7 @@
             padding-top: 0;
         }
 
-        .about-press-image, .about-intro-image {
+        .about-intro-image {
             margin-bottom: map_get( $spacing, "large" );
         }
 
@@ -113,6 +113,18 @@
 
     .about-press {
         margin-bottom: map_get( $spacing, "extra-large" );
+
+        .about-press-image {
+            margin-bottom: calc(0px - #{map_get( $spacing, "large" )});
+        }
+        
+        .about-press-title {
+            padding-top: map_get( $spacing, "extra-large" );
+        }
+    }
+
+    .about-intro {
+        padding-top: $header-height-mobile;
     }
 
     .about-contact {

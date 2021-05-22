@@ -14,6 +14,7 @@
     "start": "yarn workspace site dev",
     "clean": "yarn workspace site clean",
     "build": "yarn workspace site build",
-    "serve": "yarn workspace site serve"
+    "serve": "yarn workspace site serve",
+    "host": "yarn workspace site host"
   }
 }

@@ -51,6 +51,7 @@ footer {
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {  
 
         padding-top: map_get( $spacing, "large" );
+        padding-bottom: calc(14vh + #{map_get( $spacing, "regular" )});
     
         .footer-contact-info {
             grid-column-start: 1;
@@ -65,6 +66,33 @@ footer {
         .footer-copyright {
             grid-column-start: 1;
             grid-column-end: 7;
+        }
+    }
+
+
+    
+    @media screen and (max-width: map_get( $mq-breakpoints, "small" )) {  
+
+        display: flex !important;
+        flex-wrap: wrap;
+    
+        .footer-contact-info {
+            width: 100%;
+            margin-bottom: map_get( $spacing, "regular" );
+        }
+
+        .footer-navigation {
+            width: 100%;
+
+            .footer-navigation-list .footer-navigation-list-item {
+                text-align: left;
+                margin: 0;
+            }
+        }
+
+        .footer-copyright {
+            width: 100%;
+            text-align: left;
         }
     }
 }

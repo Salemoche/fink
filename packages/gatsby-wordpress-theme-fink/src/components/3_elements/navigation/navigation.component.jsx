@@ -7,7 +7,7 @@ import './navigation.styles.scss'
 // Gatsby
 import { StaticQuery, Link, graphql } from 'gatsby';
 import { classNames } from 'classnames';
-
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const Navigation = ({location, menu, headerVisibility, headerMode}) => {
 
@@ -19,7 +19,7 @@ const Navigation = ({location, menu, headerVisibility, headerMode}) => {
                 <ul className="header-navigation-list">
                     { menu.menuItems.nodes.map(menuItem => (
                         <li className={`header-navigation-list-item header-navigation-${menuItem.label.toLowerCase()} ${pathname == menuItem.label.toLowerCase() ? 'current' : '' }`} key={menuItem.order}>
-                            <Link to={menuItem.url}>{menuItem.label}</Link>
+                            <AniLink swipe direction="left" top="exit" duration={0.5} entryOffset={100} to={menuItem.url}>{menuItem.label}</AniLink>
                         </li>
                     ))}
                 </ul>

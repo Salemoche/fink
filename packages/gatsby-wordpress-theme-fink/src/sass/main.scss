@@ -17,9 +17,13 @@
 
 html {
     font-family: $font__main;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 16px;
     line-height: 1.5;  
+}
+
+body {
+    background: white;
 }
 
 html, body {
@@ -49,8 +53,8 @@ h1 {
     line-height: 72px;
     
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
-        font-size: 48px;
-        line-height: 48px;
+        font-size: 32px;
+        line-height: 32px;
     }
 }
 
@@ -59,8 +63,8 @@ h2 {
     line-height: 72px; 
     
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
-        font-size: 48px;
-        line-height: 48px;
+        font-size: 32px;
+        line-height: 32px;
     }
 }
 
@@ -69,8 +73,8 @@ h3, .lead {
     line-height: 40px;
     
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
-        font-size: 24px;
-        line-height: 28px;
+        font-size: 20px;
+        line-height: 24px;
     }
 }
 
@@ -86,6 +90,13 @@ p {
 
 a {
     color: $black;
+    text-decoration: none;
+    font-weight: 500;
+    transition: $transition;
+
+    &:hover {
+        opacity: 0.6;
+    }
 }
 
 ul, ol {
@@ -195,9 +206,14 @@ ul, ol {
     }
 
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+        padding-top: $header-height-mobile;
         min-height: 100vh;
         display: flex;
         flex-wrap: wrap;
+
+        h1 {
+            margin-bottom: map_get( $spacing, "regular" );
+        }
     }
 }
 
@@ -214,11 +230,12 @@ ul, ol {
     -ms-overflow-style: none;
     scrollbar-width: none;
 
-    &.layout-home {
+    &.layout-path-home {
         scroll-snap-type: y proximity;
+        // scroll-snap-type: y mandatory;
     
         .landing, .home-partners {
-            scroll-snap-align: start;
+            // scroll-snap-align: start;
         }
     
         .footer {
@@ -226,7 +243,7 @@ ul, ol {
         }
     }
 
-    &-home {
+    &-path-home {
         .header-navigation-landing {
             top: 50%;
             transform: translateY(-50%);
@@ -244,13 +261,13 @@ ul, ol {
         }
     }
 
-    &-about {
+    &-path-about {
         .header-navigation-landing {
             // opacity: 0;
         }
     }
 
-    &-design {
+    &-path-design {
         .header-navigation-landing {
             transform: none !important;
         }
@@ -260,9 +277,23 @@ ul, ol {
         }
     }
 
-    &-datenschutz,
-    &-impressum,
-    &-about {
+    &-type-project {
+        // .header-navigation-landing {
+        //     transform: none !important;
+        // }
+
+        .header-navigation .header-navigation-list .header-navigation-list-item a{
+            color: black;
+        }
+
+        .header-navigation-landing .header-navigation-list .header-navigation-list-item a{
+            color: white;
+        }
+    }
+
+    &-path-datenschutz,
+    &-path-impressum,
+    &-path-about {
         .header-navigation-landing {
             transform: none !important;
         }
@@ -274,8 +305,16 @@ ul, ol {
 
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
 
-        &.layout-home {
+        &.layout-path-home {
             scroll-snap-type: none;
+        }
+
+
+        &-path-home {
+            .header-navigation-landing {
+                top: calc(50% - 25px);
+                transform: translateY(-50%);
+            }
         }
     }
 }

@@ -29,4 +29,8 @@
         // grid-column-end: 7;
         margin-bottom: 0;
     }
+
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {
+        height: 50vh;
+    }
 }

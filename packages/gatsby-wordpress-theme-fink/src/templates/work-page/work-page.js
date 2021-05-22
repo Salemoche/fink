@@ -18,10 +18,10 @@ import '../../sass/3_modules/_work-page.scss'
 const WorkPage = (props) => {
     const {location, pageContext: {title, acfWork: { extraTile, projects } }} = props;
 
-    console.log(props)
+    // console.log(props)
 
     return (
-        <Layout location={location}>
+        <Layout location={location} type="work">
             <section className="work-container">
                 {projects.map( (project, index) => (
                     <OverviewProject key={project.id} project={project} index={index} />

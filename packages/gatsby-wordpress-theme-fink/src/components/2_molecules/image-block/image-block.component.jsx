@@ -16,8 +16,9 @@ import PlaceholderImage from '../../../images/Image-Placeholder.png'
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 const ImageBlock = ( props ) => {
-
-    const contentImage = getGatsbyImage(props.images[0].image)
+    
+    if (!props.images) return ''
+    const contentImage = getGatsbyImage(props?.images[0]?.image)
     if (!contentImage) return ''
     const {index} = props;
     const {width, height} = contentImage;

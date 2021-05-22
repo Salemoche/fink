@@ -11,20 +11,23 @@ import Loading from '../../2_molecules/loading/loading.component';
 import reducer from '../../../reducer/reducer';
 import initialState from '../../../reducer/state';
 import types from '../../../reducer/types';
+import { navigate } from '@gatsbyjs/reach-router';
 
 
-const Layout = ( {location, children} ) => {
+const Layout = ( {location, children, type} ) => {
 
     const [headerMode, setHeaderMode] = useState('regular');
     const [headerVisibility, setHeaderVisibility] = useState('visible');
     const [contentLoaded, setContentLoaded] = useState(false);
     const prevScrollY = useRef(0);
     const pathname = location.pathname.split('/')[1] || 'home';
-    // console.log(props)
 
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    // const scrollTo = () => {
+    //     navigate('#presse');
+    // }
 
     useEffect(() => {
 
@@ -51,8 +54,15 @@ const Layout = ( {location, children} ) => {
         };
 
         const handleLandingMode = (scrollDist = prevScrollY) => {
-            if (scrollDist < 42 || !scrollDist) {
-            // if (pathname == 'home' && (scrollDist < 20 || !scrollDist)) {
+            let scrollThreshold;
+
+            if (type == 'project') {
+                scrollThreshold = document.documentElement.clientHeight;
+            } else {
+                scrollThreshold = 42;
+            }
+
+            if (scrollDist < scrollThreshold || !scrollDist) {
                 setHeaderMode('landing');
             } else {
                 setHeaderMode('regular');
@@ -69,6 +79,11 @@ const Layout = ( {location, children} ) => {
 
     useEffect(() => {
         setContentLoaded(true);
+
+        if (location.hash) {
+            navigate(location.hash);
+            console.log('the hash is', location.hash)
+        }
     }, []);
 
     useEffect(() => {
@@ -119,7 +134,7 @@ const Layout = ( {location, children} ) => {
                 })
 
                 return (
-                    <div className={`layout layout-${pathname}`}>
+                    <div className={`layout layout-path-${pathname} layout-type-${type}`}>
                         {menuArray?.hauptmenu ? <Navigation location={location} menu={menuArray?.['hauptmenu']} headerMode={headerMode} headerVisibility={headerVisibility}/> : ''}
                             {children}
                         {menuArray?.['footer-menu'] ? <Footer menu={menuArray?.['footer-menu']} siteOptions={siteOptions}/> : ''}

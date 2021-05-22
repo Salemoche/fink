@@ -25,18 +25,19 @@ const PostTemplate = ( {location, pageContext } ) => {
     const { sections } = acfContent;
     const { title } = pageContext;
 
-    const homeImageTexture = getGatsbyImage(acfProject.homeImageTexture);
-    const homeImageNoTexture = getGatsbyImage(acfProject.homeImageNoTexture) || homeImageTexture;
-    const projectDetailImage = getGatsbyImage(acfProject.projectDetailImage) || homeImageTexture;
-    const projectOverviewImage = getGatsbyImage(acfProject.projectOverviewImage) || homeImageTexture;
+    const homeImageTexture = getGatsbyImage(acfProject.homeImageTexture, true);
+    const homeImageNoTexture = getGatsbyImage(acfProject.homeImageNoTexture, true) || homeImageTexture;
+    const projectDetailImage = getGatsbyImage(acfProject.projectDetailImage, true) || homeImageTexture;
+    const projectOverviewImage = getGatsbyImage(acfProject.projectOverviewImage, true) || homeImageTexture;
 
-    console.log(sections)
+    console.log(homeImageTexture.image)
+    console.log(projectDetailImage.image)
 
     // const [] = useReducer( )
     // const [ images, updateImages ] = useState{[]}
 
 	return (
-        <Layout location={location}>
+        <Layout location={location} type="project">
             <main>
                 <ProjectHeader title={title} projectDetailImage={projectDetailImage} />
                 { sections && 

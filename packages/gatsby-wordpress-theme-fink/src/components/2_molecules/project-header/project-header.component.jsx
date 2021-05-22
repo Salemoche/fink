@@ -13,15 +13,26 @@ import PlaceholderImage from '../../../images/Image-Placeholder.png'
 
 const ProjectHeader = ( {projectDetailImage, title} ) => {
 
-    // setTimeout(() => {
-    //     console.log(props)
-    // }, 400);
+    let projectImage = {
+        ...projectDetailImage,
+        image: {
+            ...projectDetailImage.image,
+            quality: 100,
+            layout: 'fullwidth',
+            // outputPixelDensities: [1, 2],
+            // breakpoints: [768, 1080, 1366, 1920]
+        }
+    }
+
+    setTimeout(() => {
+        // console.log(projectDetailImage.image)
+    }, 400);
 
     return (
         <div className="project-header fink-grid-container">
             <div className="project-header__image">
                 { projectDetailImage?.image ? 
-                    <GatsbyImage className="project-header-image" image={projectDetailImage.image} alt={projectDetailImage.altText}></GatsbyImage>
+                    <GatsbyImage loading="eager" className="project-header-image" image={projectDetailImage.image} alt={projectDetailImage.altText}></GatsbyImage>
                 :
                     <img src={PlaceholderImage} alt="Placeholder" srcSet=""/>
                 }

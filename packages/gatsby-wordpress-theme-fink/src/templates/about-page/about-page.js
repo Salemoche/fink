@@ -23,20 +23,20 @@ const AboutPage = ({location, pageContext: {acfAbout: { aboutImage, aboutText, a
     const gatsbyPressImage = getGatsbyImage(pressImage);
 
     return (
-        <Layout location={location}>
+        <Layout location={location} type="about">
             <section className="about-intro fink-grid-container">
-                <h2 className="about-intro-title fink-grid-item fink-grid-item-2-6">{aboutTitle}</h2>
+                <h2 id="intro" className="about-intro-title fink-grid-item fink-grid-item-2-6">{aboutTitle}</h2>
                 <div className="about-intro-text fink-grid-item fink-grid-item-2-6" dangerouslySetInnerHTML={{__html: aboutText}}></div>
                 <GatsbyImage className="about-intro-image fink-grid-item fink-grid-item-7-13" image={gatsbyAboutImage.image} alt={gatsbyAboutImage.altText}></GatsbyImage>
             </section>
-            <section className="about-contact">
+            <section id="kontakt" className="about-contact">
                 {contact.map(({contactItem}, index) => (
                     <div className="about-contact-text" key={index} dangerouslySetInnerHTML={{__html: contactItem}}></div>
                 ))}
             </section>
             <section className="about-press fink-grid-container">
                 <GatsbyImage className="about-press-image fink-grid-item fink-grid-item-1-7" image={gatsbyPressImage.image} alt={gatsbyPressImage.altText}></GatsbyImage>
-                <h2 className="about-press-title fink-grid-item fink-grid-item-8-12">{pressTitle}</h2>
+                <h2 id="presse" className="about-press-title fink-grid-item fink-grid-item-8-12">{pressTitle}</h2>
                 <div className="about-press-text fink-grid-item fink-grid-item-8-12" dangerouslySetInnerHTML={{__html: pressText}}></div>
             </section>
         </Layout>

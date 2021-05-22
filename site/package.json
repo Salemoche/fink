@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "gatsby develop",
+    "host": "gatsby develop -H 192.168.1.107 -p 8000",
     "clean": "gatsby clean",
     "build": "gatsby build",
     "serve": "gatsby clean && tatsby build && gatsby serve"

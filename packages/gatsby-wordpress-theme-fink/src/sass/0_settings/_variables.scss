@@ -2,8 +2,10 @@ $content-width: 1240px;
 $content-width--narrow: 768px;
 // $header-height: 104px;
 $header-height: 96px;
+$header-height-mobile: 14vw;
 
 $mq-breakpoints: (
+	xsmall: 320px,
 	small: 420px,
 	medium: 768px,
 	large: 1024px,
@@ -27,8 +29,8 @@ $spacing: (
 $transition: .1s;
 $transition-long: .3s;
 $transition-extra-long: 1s;
-$transition-extra-long-delayed: 1s .2s;
-$transition-extra-long-delayed-short: 1s .1s;
+$transition-extra-long-delayed: 1s .6s;
+$transition-extra-long-delayed-short: 1s .3s;
 $border-radius: 8px;
 $border-radius-small: 4px;
 $box-shadow: 5px 0px 15px #00000012;

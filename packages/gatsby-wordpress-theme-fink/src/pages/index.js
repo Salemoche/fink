@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { graphql } from "gatsby"
 
 // Gatsby
@@ -26,24 +26,58 @@ const FrontPage = ({location, data: { wpPage }}) => {
     //     console.log(wpPage)
     // }, 400);
     const {title, acfStart: { partners, projects, partnersTitle, landingVideo }} = wpPage;
+    const [scrollY, setScrollY] = useState(0);
+    // const [scrollY, setScrollY] = useRef(0);
+
+
+    useEffect(() => {
+
+        const layout = document.querySelector('.layout');
+
+        const handleScroll = () => {
+            const currentScrollY = layout.scrollTop;
+    
+            // scrollY = currentScrollY;
+            setScrollY(currentScrollY)
+        };
+
+        layout.addEventListener("scroll", handleScroll, { passive: true });
+    
+        return () => layout.removeEventListener("scroll", handleScroll);
+    }, []);
+
+
+    // useEffect(() => {
+
+    //     console.log(scrollY)
+
+    // }, [scrollY]);
 
     return (
-        <Layout location={location}>
+        <Layout location={location} type="front">
             <Landing {...landingVideo}/>
             {projects.map( (project, index) => (
-                <HomeProject key={index} project={{index, ...project}} />
+                <HomeProject key={index} project={{index, ...project}} scrollDist={scrollY} />
             ))}
             <section className="home-partners fink-grid-container">
                 <h2 className="fink-grid-item fink-grid-item-2-12">{partnersTitle}</h2>
                 <div className="home-partners-container fink-grid-item fink-grid-item-2-12">
                 {partners.map( (partner, index) => {
-                    const logo = getGatsbyImage(partner.logo);
-                    return (
-                        <a href={partner.link} className="home-partner" key={index}>
-                            <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage>
-                            {/* <img className="home-project-background-texture" src={partner.logo.link} alt={partner.altText}/> */}
-                        </a>
-                    )
+                    if(partner.link) {
+                        return (
+                            <a href={partner.link} target="_blank" className="home-partner" key={index}>
+                                {/* <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage> */}
+                                <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>
+                            </a>
+                        )
+                    } else {
+                        return (
+                            <div className="home-partner" key={index}>
+                                {/* <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage> */}
+                                <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>
+                            </div>
+                        )
+                    }
                 })} 
                 </div>
             </section>
@@ -70,6 +104,7 @@ export const pageQuery = graphql`
                     logo {
                         link
                         altText
+                        sourceUrl
                         localFile {
                             childImageSharp {
                                 gatsbyImageData
@@ -89,7 +124,9 @@ export const pageQuery = graphql`
                                 altText
                                 localFile {
                                     childImageSharp {
-                                        gatsbyImageData
+                                        gatsbyImageData(
+                                            quality: 100
+                                        )
                                     }
                                 }
                             }
@@ -97,7 +134,9 @@ export const pageQuery = graphql`
                                 altText
                                 localFile {
                                     childImageSharp {
-                                        gatsbyImageData
+                                        gatsbyImageData(
+                                            quality: 100
+                                        )
                                     }
                                 }
                             }
