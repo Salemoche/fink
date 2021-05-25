@@ -30,8 +30,7 @@ const PostTemplate = ( {location, pageContext } ) => {
     const projectDetailImage = getGatsbyImage(acfProject.projectDetailImage, true) || homeImageTexture;
     const projectOverviewImage = getGatsbyImage(acfProject.projectOverviewImage, true) || homeImageTexture;
 
-    console.log(homeImageTexture.image)
-    console.log(projectDetailImage.image)
+    console.log(sections);
 
     // const [] = useReducer( )
     // const [ images, updateImages ] = useState{[]}

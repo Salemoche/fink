@@ -20,6 +20,7 @@
         // grid-column-end: 12;
         
         .home-partner {
+            transition: opacity $transition-long;
             width: 33%;
             margin-top: map_get( $spacing, "extra-large" );
 

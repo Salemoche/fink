@@ -34,11 +34,19 @@ const AboutPage = ({location, pageContext: {acfAbout: { aboutImage, aboutText, a
                     <div className="about-contact-text" key={index} dangerouslySetInnerHTML={{__html: contactItem}}></div>
                 ))}
             </section>
-            <section className="about-press fink-grid-container">
-                <GatsbyImage className="about-press-image fink-grid-item fink-grid-item-1-7" image={gatsbyPressImage.image} alt={gatsbyPressImage.altText}></GatsbyImage>
-                <h2 id="presse" className="about-press-title fink-grid-item fink-grid-item-8-12">{pressTitle}</h2>
-                <div className="about-press-text fink-grid-item fink-grid-item-8-12" dangerouslySetInnerHTML={{__html: pressText}}></div>
-            </section>
+            { gatsbyPressImage || pressText ? 
+                <section className="about-press fink-grid-container">
+                    {gatsbyPressImage ? 
+                        <GatsbyImage className="about-press-image fink-grid-item fink-grid-item-1-7" image={gatsbyPressImage.image} alt={gatsbyPressImage.altText}></GatsbyImage>
+                    :
+                        ""
+                    }
+                    <h2 id="presse" className="about-press-title fink-grid-item fink-grid-item-8-12">{pressTitle}</h2>
+                    <div className="about-press-text fink-grid-item fink-grid-item-8-12" dangerouslySetInnerHTML={{__html: pressText}}></div>
+                </section>
+            :
+                ''
+            }
         </Layout>
     )
 }

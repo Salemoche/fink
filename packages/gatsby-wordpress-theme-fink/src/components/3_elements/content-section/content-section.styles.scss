@@ -6,6 +6,10 @@
     margin-bottom: map_get( $spacing, "extra-extra-large" );
     align-items: end;
 
+    &:first-of-type {
+        margin-top: map_get( $spacing, "extra-extra-large" );
+    }
+
     .content-section__column {
 
 

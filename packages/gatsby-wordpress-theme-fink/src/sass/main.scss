@@ -191,8 +191,8 @@ ul, ol {
     padding: map_get( $spacing, "regular" );
     padding-top: $header-height;
     padding-top: 120px;
-    align-items: flex-end;
-    align-content: space-between;
+    align-items: flex-start;
+    align-content: baseline;
 
     > * {
         grid-column-start: 2;
@@ -231,7 +231,7 @@ ul, ol {
     scrollbar-width: none;
 
     &.layout-path-home {
-        scroll-snap-type: y proximity;
+        // scroll-snap-type: y proximity;
         // scroll-snap-type: y mandatory;
     
         .landing, .home-partners {
@@ -239,7 +239,7 @@ ul, ol {
         }
     
         .footer {
-            scroll-snap-align: end;
+            // scroll-snap-align: end;
         }
     }
 
@@ -306,7 +306,7 @@ ul, ol {
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
 
         &.layout-path-home {
-            scroll-snap-type: none;
+            // scroll-snap-type: none;
         }
 
 

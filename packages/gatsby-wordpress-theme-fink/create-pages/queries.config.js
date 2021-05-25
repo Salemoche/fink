@@ -231,6 +231,19 @@ module.exports = {
                                             }
                                         }
                                     }
+                                    ... on WpPost_Acfcontent_sections_Content_SliderLayout {
+                                        fieldGroupName
+                                        imageCaption
+                                        slides {
+                                            altText
+                                            caption
+                                            localFile {
+                                                childImageSharp {
+                                                    gatsbyImageData
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

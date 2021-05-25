@@ -13,11 +13,10 @@ import './content-section.styles.scss';
 import SliderBlock from '../../2_molecules/slider-block/slider-block.component';
 
 const ContentSection = ( props ) => {
-
     const content = props.content;
     if (!content) return ''
 
-    const isFullImage = content.length == 1 && content[0].fieldGroupName == 'post_Acfcontent_sections_Content_ImageLayout';
+    const isFullImage = content.length == 1 && content[0].fieldGroupName !== 'post_Acfcontent_sections_Content_TextLayout';
     const sectionContent = {}
 
     // fill layout object with the content (up to 2)
@@ -26,9 +25,9 @@ const ContentSection = ( props ) => {
       const element = array[index];
       if (!element) return {}
 
-      setTimeout(() => {
-          console.log(element)
-      }, 400);
+      // setTimeout(() => {
+      //     console.log(element)
+      // }, 400);
       let images;
 
       if (element?.image) {
