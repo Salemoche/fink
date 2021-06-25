@@ -81,7 +81,7 @@ const ContentSection = ( props ) => {
         return <ImageBlock {...contentObject}/>
       } else if (contentObject.contentType == 'SliderLayout') {
         // return <ImageBlock {...contentObject}/>
-        return <SliderBlock {...contentObject}/>
+        return <SliderBlock {...contentObject} full={isFullImage}/>
       }
     }
 

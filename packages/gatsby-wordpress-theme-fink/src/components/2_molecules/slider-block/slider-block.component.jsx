@@ -39,6 +39,8 @@ const SliderBlock = ( props ) => {
               "disableOnInteraction": false
             }}
             speed={1000}
+            slidesPerView={props.full ? 3 : 1} 
+            spaceBetween={16}
             // autoHeight={true}
             onSlideChange={(swiper) => setCurrentSlide(swiper.activeIndex + 1)}
           >
