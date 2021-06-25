@@ -39,10 +39,25 @@ const SliderBlock = ( props ) => {
               "disableOnInteraction": false
             }}
             speed={1000}
-            slidesPerView={props.full ? 3 : 1} 
+            // slidesPerView={props.full ? 3 : 1} 
             spaceBetween={16}
             // autoHeight={true}
             onSlideChange={(swiper) => setCurrentSlide(swiper.activeIndex + 1)}
+            breakpoints={ props.full ?
+              {
+                "414": {
+                  "slidesPerView": 1,
+                },
+                "768": {
+                  "slidesPerView": 2,
+                },
+                "1024": {
+                  "slidesPerView": 3,
+                }
+              }
+            :
+              {}
+            }
           >
             { contentImages?.map((image, i) => (
               <SwiperSlide key={i} >
