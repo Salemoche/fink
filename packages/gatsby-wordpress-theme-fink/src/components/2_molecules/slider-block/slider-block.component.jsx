@@ -47,6 +47,7 @@ const SliderBlock = ( props ) => {
               {
                 "414": {
                   "slidesPerView": 1,
+                  'autoHeight': true
                 },
                 "768": {
                   "slidesPerView": 2,

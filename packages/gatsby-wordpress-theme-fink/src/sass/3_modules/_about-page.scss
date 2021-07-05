@@ -45,6 +45,12 @@
             &:last-child {
                 margin-bottom: 0;
             }
+
+            &:nth-child(2):nth-last-child(2) {
+
+                margin-left: map_get( $spacing, "regular" );
+                margin-right: map_get( $spacing, "regular" );
+            }
         }
     }
 }
@@ -130,14 +136,16 @@
     .about-contact {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         padding-top: map_get( $spacing, "extra-extra-large" );
         padding-bottom: map_get( $spacing, "extra-large" );
-        padding-left: map_get( $spacing, "regular" );
+        padding-right: map_get( $spacing, "regular" );
         padding-left: map_get( $spacing, "regular" );
 
         .about-contact-text {
             margin-bottom: map_get( $spacing, "extra-large" );
-            margin-right: map_get( $spacing, "regular" );
+            margin-right: 0 !important;
+            margin-left: 0 !important;
 
             &:last-of-type {
                 margin-right: 0;
