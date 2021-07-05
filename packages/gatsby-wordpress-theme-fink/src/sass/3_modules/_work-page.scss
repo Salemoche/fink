@@ -136,18 +136,20 @@
         justify-content: flex-start;
 
         .overview-project {
+
             .overview-project-content {
                 h2 {
-                    font-size: 3vw;
-                    line-height: 3.48vw;
+                    font-size: 16px;
+                    line-height: 1.16;
                     opacity: 1;
                 }
             }
             &.extra-tile {
                 width: 100%;
-                padding-top: map_get( $spacing, "large" );
+                padding-top: map_get( $spacing, "extra-large" );
                 padding-left: map_get( $spacing, "regular" );
                 padding-right: map_get( $spacing, "regular" );
+                text-align: center;
 
                 > * {
                     grid-column-start: 1;
