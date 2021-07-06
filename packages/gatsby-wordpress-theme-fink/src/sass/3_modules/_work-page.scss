@@ -127,6 +127,15 @@
                     grid-column-end: 7;
                 }
             }
+
+
+            .overview-project-background-texture {
+                opacity: 1 !important;
+            }
+
+            .overview-project-background-no-texture {
+                display: none;
+            }
         }
     }
 
@@ -149,7 +158,7 @@
                 padding-top: map_get( $spacing, "extra-large" );
                 padding-left: map_get( $spacing, "regular" );
                 padding-right: map_get( $spacing, "regular" );
-                text-align: center;
+                // text-align: center;
 
                 > * {
                     grid-column-start: 1;
