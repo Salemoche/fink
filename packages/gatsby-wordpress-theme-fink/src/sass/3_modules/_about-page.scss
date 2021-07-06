@@ -41,6 +41,7 @@
 
     .about-contact-text {
 
+
         > * {
             &:last-child {
                 margin-bottom: 0;
@@ -146,6 +147,10 @@
             margin-bottom: map_get( $spacing, "extra-large" );
             margin-right: 0 !important;
             margin-left: 0 !important;
+
+            * {
+                text-align: left !important;
+            }
 
             &:last-of-type {
                 margin-right: 0;
