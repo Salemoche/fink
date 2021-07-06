@@ -147,6 +147,13 @@
             margin-bottom: map_get( $spacing, "extra-large" );
             margin-right: 0 !important;
             margin-left: 0 !important;
+            width: 414px;
+            max-width: 100%;
+
+            h4 {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
 
             * {
                 text-align: left !important;
