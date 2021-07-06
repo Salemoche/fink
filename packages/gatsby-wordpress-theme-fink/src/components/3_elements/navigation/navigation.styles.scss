@@ -42,7 +42,7 @@
             &.header-navigation-about {
                 text-align: right;
                 margin-left: auto;
-                margin-right: map_get( $spacing, "large" );
+                margin-right: map_get( $spacing, "regular" );;
 
                 a {
                     font-weight: 200;

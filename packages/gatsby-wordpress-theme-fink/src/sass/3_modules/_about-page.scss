@@ -41,6 +41,15 @@
 
     .about-contact-text {
 
+        width: calc(33% - #{map_get( $spacing, "regular" )});
+        max-width: 414px;
+
+        &:nth-child(2):nth-last-child(2) {
+
+            margin-left: map_get( $spacing, "regular" );
+            margin-right: map_get( $spacing, "regular" );
+        }
+
 
         > * {
             &:last-child {
