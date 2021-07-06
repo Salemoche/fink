@@ -127,6 +127,15 @@
                     grid-column-end: 7;
                 }
             }
+
+
+            .overview-project-background-texture {
+                opacity: 1 !important;
+            }
+
+            .overview-project-background-no-texture {
+                display: none;
+            }
         }
     }
 
