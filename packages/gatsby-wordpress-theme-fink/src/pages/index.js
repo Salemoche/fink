@@ -25,7 +25,7 @@ const FrontPage = ({location, data: { wpPage }}) => {
     // setTimeout(() => {
     //     console.log(wpPage)
     // }, 400);
-    const {title, acfStart: { partners, projects, partnersTitle, landingVideo }} = wpPage;
+    const {title, acfStart: { partners, projects, partnersTitle, landingVideo, landingVideoPlaceholder }} = wpPage;
     const [scrollY, setScrollY] = useState(0);
     // const [scrollY, setScrollY] = useRef(0);
 
@@ -55,7 +55,7 @@ const FrontPage = ({location, data: { wpPage }}) => {
 
     return (
         <Layout location={location} type="front">
-            <Landing {...landingVideo}/>
+            <Landing video={landingVideo} placeholder={landingVideoPlaceholder}/>
             {projects.map( (project, index) => (
                 <HomeProject key={index} project={{index, ...project}} scrollDist={scrollY} />
             ))}
@@ -97,6 +97,15 @@ export const pageQuery = graphql`
             acfStart {
                 landingVideo {
                     mediaItemUrl
+                }
+                landingVideoPlaceholder {
+                    link
+                    altText
+                    localFile {
+                        childImageSharp {
+                            gatsbyImageData
+                        }
+                    }
                 }
                 partnersTitle
                 partners {

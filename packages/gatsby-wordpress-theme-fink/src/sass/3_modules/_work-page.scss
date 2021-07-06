@@ -137,6 +137,14 @@
 
         .overview-project {
 
+            .overview-project-background-texture {
+                opacity: 1 !important;
+            }
+
+            .overview-project-background-no-texture {
+                display: none;
+            }
+
             .overview-project-content {
                 h2 {
                     font-size: 16px;
@@ -149,7 +157,7 @@
                 padding-top: map_get( $spacing, "extra-large" );
                 padding-left: map_get( $spacing, "regular" );
                 padding-right: map_get( $spacing, "regular" );
-                text-align: center;
+                // text-align: center;
 
                 > * {
                     grid-column-start: 1;

@@ -39,9 +39,28 @@
         animation: blink 1.5s infinite alternate;
     }
 
+    .landing__placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+    }
+
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
         .scroll-down-button {
             bottom: map_get( $spacing, "extra-extra-large" );
+        }
+    }
+
+    @media screen and (max-width: map_get( $mq-breakpoints, "small" )) {   
+        video {
+            display: none;
+        }
+        
+        .landing__placeholder {
+            display: inherit;
         }
     }
 }

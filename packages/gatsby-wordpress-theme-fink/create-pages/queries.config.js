@@ -11,6 +11,15 @@ module.exports = {
                     landingVideo {
                         mediaItemUrl
                     }
+                    landingVideoPlaceholder {
+                        link
+                        altText
+                        localFile {
+                            childImageSharp {
+                                gatsbyImageData
+                            }
+                        }
+                    }
                     partnersTitle
                     partners {
                         link
