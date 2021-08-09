@@ -12,11 +12,11 @@ module.exports = [{
       options: {"plugins":[]},
     },{
       plugin: require('../../node_modules/gatsby-source-wordpress/gatsby-browser.js'),
-      options: {"plugins":[],"url":"https://backend.fink.studio/graphql","hostingWPCOM":false,"useACF":true,"schema":{"perPage":10,"requestConcurrency":3,"previewRequestConcurrency":1}},
+      options: {"plugins":[],"url":"http://backend.fink.studio/graphql","hostingWPCOM":false,"useACF":true,"schema":{"perPage":10,"requestConcurrency":3,"previewRequestConcurrency":1}},
     },{
       plugin: require('../../node_modules/gatsby-plugin-offline/gatsby-browser.js'),
       options: {"plugins":[]},
     },{
       plugin: require('../../packages/gatsby-wordpress-theme-fink/gatsby-browser.js'),
-      options: {"plugins":[],"wordPressUrl":"https://backend.fink.studio","frontendUrl":"http://localhost:8000"},
+      options: {"plugins":[],"wordPressUrl":"http://backend.fink.studio","frontendUrl":"http://backend.fink.studio"},
     }]

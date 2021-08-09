@@ -29,7 +29,6 @@ const FrontPage = ({location, data: { wpPage }}) => {
     const [scrollY, setScrollY] = useState(0);
     // const [scrollY, setScrollY] = useRef(0);
 
-
     useEffect(() => {
 
         const layout = document.querySelector('.layout');
@@ -67,14 +66,22 @@ const FrontPage = ({location, data: { wpPage }}) => {
                         return (
                             <a href={partner.link} target="_blank" className="home-partner" key={index}>
                                 {/* <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage> */}
-                                <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>
+                                { partner.logo ? 
+                                    <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>
+                                :
+                                    ''
+                                }
                             </a>
                         )
                     } else {
                         return (
                             <div className="home-partner" key={index}>
                                 {/* <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage> */}
-                                <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>
+                                { partner.logo ? 
+                                    <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>
+                                :
+                                    ''
+                                }
                             </div>
                         )
                     }

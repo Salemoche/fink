@@ -21,6 +21,7 @@ const AboutPage = ({location, pageContext: {acfAbout: { aboutImage, aboutText, a
 
     const gatsbyAboutImage = getGatsbyImage(aboutImage);
     const gatsbyPressImage = getGatsbyImage(pressImage);
+    console.log(contact)
 
     return (
         <Layout location={location} type="about">
@@ -30,7 +31,7 @@ const AboutPage = ({location, pageContext: {acfAbout: { aboutImage, aboutText, a
                 <GatsbyImage className="about-intro-image fink-grid-item fink-grid-item-7-13" image={gatsbyAboutImage.image} alt={gatsbyAboutImage.altText}></GatsbyImage>
             </section>
             <section id="kontakt" className="about-contact">
-                {contact.map(({contactItem}, index) => (
+                {contact?.map(({contactItem}, index) => (
                     <div className="about-contact-text" key={index} dangerouslySetInnerHTML={{__html: contactItem}}></div>
                 ))}
             </section>

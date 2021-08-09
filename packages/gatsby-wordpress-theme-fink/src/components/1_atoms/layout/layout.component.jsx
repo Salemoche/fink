@@ -114,13 +114,13 @@ const Layout = ( {location, children, type} ) => {
                     }
                     allWp(limit: 1) {
                         edges {
-                        node {
-                            seitenOptionen {
-                            acfOptions {
-                                contact
+                            node {
+                                seitenOptionen {
+                                    acfOptions {
+                                        contact
+                                    }
+                                }
                             }
-                            }
-                        }
                         }
                     }
                 }
@@ -135,9 +135,9 @@ const Layout = ( {location, children, type} ) => {
 
                 return (
                     <div className={`layout layout-path-${pathname} layout-type-${type}`}>
-                        {menuArray?.hauptmenu ? <Navigation location={location} menu={menuArray?.['hauptmenu']} headerMode={headerMode} headerVisibility={headerVisibility}/> : ''}
+                        {menuArray?.header ? <Navigation location={location} menu={menuArray?.['header']} headerMode={headerMode} headerVisibility={headerVisibility}/> : ''}
                             {children}
-                        {menuArray?.['footer-menu'] ? <Footer menu={menuArray?.['footer-menu']} siteOptions={siteOptions}/> : ''}
+                        {menuArray?.['footer'] ? <Footer menu={menuArray?.['footer']} siteOptions={siteOptions}/> : ''}
                         <Loading contentLoaded={contentLoaded}/>
                     </div>
                 )

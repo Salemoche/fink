@@ -7,7 +7,7 @@ module.exports = {
 		resolve: "gatsby-wordpress-theme-fink",
 		options: {
 			wordPressUrl: `${ process.env.GATSBY_WORDPRESS_SITE_URL }`,
-			frontendUrl: `${ process.env.FRONTEND_URL }`
+			frontendUrl: `${ process.env.FRONTEND_URL }`,
 		}
 	} ]
 };

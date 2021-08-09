@@ -14,11 +14,11 @@ import OverviewProject from '../../components/2_molecules/overview-project/overv
 // Styling
 import '../../sass/3_modules/_work-page.scss'
 
-// const FrontPage = ({pageContext}) => {
+// const FrontPage = ({pageContext}) => { 
 const WorkPage = (props) => {
     const {location, pageContext: {title, acfWork: { extraTile, projects } }} = props;
 
-    // console.log(props)
+    console.log(extraTile, projects)
 
     return (
         <Layout location={location} type="work">
