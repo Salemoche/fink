@@ -138,7 +138,7 @@ const Layout = ( {location, children, type} ) => {
                         {menuArray?.header ? <Navigation location={location} menu={menuArray?.['header']} headerMode={headerMode} headerVisibility={headerVisibility}/> : ''}
                             {children}
                         {menuArray?.['footer'] ? <Footer menu={menuArray?.['footer']} siteOptions={siteOptions}/> : ''}
-                        <Loading contentLoaded={contentLoaded}/>
+                        {/* <Loading contentLoaded={contentLoaded}/> */}
                     </div>
                 )
             }}
