@@ -35,7 +35,7 @@ const Footer = ( { menu, siteOptions } ) => {
                 </ul>
             </nav>
             <div className="footer-copyright">
-                Copyright ©{new Date().getFullYear()} | Website by <a href="http://inter-action.design" target="_blank" rel="noopener noreferrer">Salemoche</a>
+                Copyright ©{new Date().getFullYear()} | Website by <a href="https://bachstein.ch" target="_blank" rel="noopener noreferrer">Bachstein</a>
             </div>
         </footer>
     )
