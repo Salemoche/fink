@@ -16,5 +16,6 @@
     "build": "yarn workspace site build",
     "serve": "yarn workspace site serve",
     "host": "yarn workspace site host"
-  }
+  },
+  "dependencies": {}
 }
