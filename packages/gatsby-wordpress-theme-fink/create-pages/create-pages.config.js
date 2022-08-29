@@ -60,7 +60,7 @@ module.exports = async ( props ) => {
 
 				if (debug) {
                     console.warn('----------------------------------------- The data -----------------------------------------')
-                    console.log(JSON.stringify(data, null, 4))
+                    // console.log(JSON.stringify(data, null, 4))
                 }
 
                 let pages = [];
@@ -98,6 +98,10 @@ module.exports = async ( props ) => {
                 let pageSlug = isHome ? '/' : slug ? `/${slug}` : `/${page.slug}`;
                 // console.warn(`----------------------------------------- The Slug for ${page.slug} is ${pageSlug} -----------------------------------------`)
                 
+                if ( slug == 'about' || page.slug == 'about') {
+                    console.log(JSON.stringify(page, null, 4))
+                }
+
 				createPage( {
 					// path: `${ page.slug }`,
 					path: pageSlug,

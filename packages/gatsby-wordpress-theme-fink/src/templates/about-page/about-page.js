@@ -21,7 +21,7 @@ const AboutPage = ({location, pageContext: {acfAbout: { aboutImage, aboutText, a
 
     const gatsbyAboutImage = getGatsbyImage(aboutImage);
     const gatsbyPressImage = getGatsbyImage(pressImage);
-    console.log(contact)
+    console.log(aboutText)
 
     return (
         <Layout location={location} type="about">
