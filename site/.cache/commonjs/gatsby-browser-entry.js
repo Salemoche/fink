@@ -1,12 +1,25 @@
 "use strict";
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 exports.__esModule = true;
+var _exportNames = {
+  graphql: true,
+  StaticQueryContext: true,
+  StaticQuery: true,
+  useStaticQuery: true,
+  prefetchPathname: true,
+  Link: true,
+  withPrefix: true,
+  withAssetPrefix: true,
+  navigate: true,
+  parsePath: true,
+  useScrollRestoration: true,
+  PageRenderer: true
+};
+exports.StaticQueryContext = exports.StaticQuery = void 0;
 exports.graphql = graphql;
-exports.prefetchPathname = exports.useStaticQuery = exports.StaticQuery = exports.StaticQueryContext = void 0;
+exports.useStaticQuery = exports.prefetchPathname = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -29,6 +42,19 @@ var _publicPageRenderer = _interopRequireDefault(require("./public-page-renderer
 exports.PageRenderer = _publicPageRenderer.default;
 
 var _loader = _interopRequireDefault(require("./loader"));
+
+var _gatsbyScript = require("gatsby-script");
+
+Object.keys(_gatsbyScript).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _gatsbyScript[key]) return;
+  exports[key] = _gatsbyScript[key];
+});
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const prefetchPathname = _loader.default.enqueue;
 exports.prefetchPathname = prefetchPathname;

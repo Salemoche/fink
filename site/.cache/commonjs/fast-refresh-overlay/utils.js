@@ -3,15 +3,15 @@
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 exports.__esModule = true;
-exports.prettifyStack = prettifyStack;
-exports.openInEditor = openInEditor;
+exports.formatFilename = formatFilename;
 exports.getCodeFrameInformation = getCodeFrameInformation;
 exports.getLineNumber = getLineNumber;
-exports.formatFilename = formatFilename;
+exports.openInEditor = openInEditor;
+exports.prettifyStack = prettifyStack;
+exports.reloadPage = reloadPage;
+exports.skipSSR = skipSSR;
 
 var _anser = _interopRequireDefault(require("anser"));
-
-const enterRegex = /^\s$/;
 
 function prettifyStack(errorInformation) {
   let txt;
@@ -22,37 +22,43 @@ function prettifyStack(errorInformation) {
     txt = errorInformation;
   }
 
-  const generated = _anser.default.ansiToJson(txt, {
+  return _anser.default.ansiToJson(txt, {
     remove_empty: true,
     use_classes: true,
     json: true
-  }); // Sometimes the first line/entry is an "Enter", so we need to filter this out
-
-
-  const [firstLine, ...rest] = generated;
-
-  if (enterRegex.test(firstLine.content)) {
-    return rest;
-  }
-
-  return generated;
+  });
 }
 
 function openInEditor(file, lineNumber = 1) {
-  window.fetch(`/__open-stack-frame-in-editor?fileName=` + window.encodeURIComponent(file) + `&lineNumber=` + window.encodeURIComponent(lineNumber));
+  fetch(`/__open-stack-frame-in-editor?fileName=` + window.encodeURIComponent(file) + `&lineNumber=` + window.encodeURIComponent(lineNumber));
+}
+
+function reloadPage() {
+  window.location.reload();
+}
+
+function skipSSR() {
+  if (`URLSearchParams` in window) {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set(`skip-ssr`, `true`);
+    window.location.search = searchParams.toString();
+  }
 }
 
 function getCodeFrameInformation(stackTrace) {
-  const callSite = stackTrace.find(CallSite => CallSite.getFileName());
+  const stackFrame = stackTrace.find(stackFrame => {
+    const fileName = stackFrame.getFileName();
+    return fileName && fileName !== `[native code]`; // Quirk of Safari error stack frames
+  });
 
-  if (!callSite) {
+  if (!stackFrame) {
     return null;
   }
 
-  const moduleId = formatFilename(callSite.getFileName());
-  const lineNumber = callSite.getLineNumber();
-  const columnNumber = callSite.getColumnNumber();
-  const functionName = callSite.getFunctionName();
+  const moduleId = formatFilename(stackFrame.getFileName());
+  const lineNumber = stackFrame.getLineNumber();
+  const columnNumber = stackFrame.getColumnNumber();
+  const functionName = stackFrame.getFunctionName();
   return {
     moduleId,
     lineNumber,

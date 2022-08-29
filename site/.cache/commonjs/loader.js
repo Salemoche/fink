@@ -3,8 +3,9 @@
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 exports.__esModule = true;
+exports.default = exports.ProdLoader = exports.PageResourceStatus = exports.BaseLoader = void 0;
 exports.getStaticQueryResults = getStaticQueryResults;
-exports.default = exports.publicLoader = exports.setLoader = exports.ProdLoader = exports.BaseLoader = exports.PageResourceStatus = void 0;
+exports.setLoader = exports.publicLoader = void 0;
 
 var _prefetch = _interopRequireDefault(require("./prefetch"));
 
@@ -28,21 +29,20 @@ const PageResourceStatus = {
 };
 exports.PageResourceStatus = PageResourceStatus;
 
-const preferDefault = m => m && m.default || m;
-
 const stripSurroundingSlashes = s => {
   s = s[0] === `/` ? s.slice(1) : s;
   s = s.endsWith(`/`) ? s.slice(0, -1) : s;
   return s;
 };
 
-const createPageDataUrl = path => {
+const createPageDataUrl = rawPath => {
+  const [path, maybeSearch] = rawPath.split(`?`);
   const fixedPath = path === `/` ? `index` : stripSurroundingSlashes(path);
-  return `${__PATH_PREFIX__}/page-data/${fixedPath}/page-data.json`;
+  return `${__PATH_PREFIX__}/page-data/${fixedPath}/page-data.json${maybeSearch ? `?${maybeSearch}` : ``}`;
 };
 
 function doFetch(url, method = `GET`) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const req = new XMLHttpRequest();
     req.open(method, url, true);
 
@@ -68,18 +68,23 @@ const doesConnectionSupportPrefetch = () => {
   }
 
   return true;
-};
+}; // Regex that matches common search crawlers
 
-const toPageResources = (pageData, component = null) => {
+
+const BOT_REGEX = /bot|crawler|spider|crawling/i;
+
+const toPageResources = (pageData, component = null, head) => {
   const page = {
     componentChunkName: pageData.componentChunkName,
     path: pageData.path,
     webpackCompilationHash: pageData.webpackCompilationHash,
     matchPath: pageData.matchPath,
-    staticQueryHashes: pageData.staticQueryHashes
+    staticQueryHashes: pageData.staticQueryHashes,
+    getServerDataError: pageData.getServerDataError
   };
   return {
     component,
+    head,
     json: pageData.result,
     page
   };
@@ -87,7 +92,6 @@ const toPageResources = (pageData, component = null) => {
 
 class BaseLoader {
   constructor(loadComponent, matchPaths) {
-    this.inFlightNetworkRequests = new Map();
     // Map of pagePath -> Page. Where Page is an object with: {
     //   status: PageResourceStatus.Success || PageResourceStatus.Error,
     //   payload: PageResources, // undefined if PageResourceStatus.Error
@@ -107,11 +111,15 @@ class BaseLoader {
     this.inFlightDb = new Map();
     this.staticQueryDb = {};
     this.pageDataDb = new Map();
+    this.isPrefetchQueueRunning = false;
+    this.prefetchQueued = [];
     this.prefetchTriggered = new Set();
     this.prefetchCompleted = new Set();
     this.loadComponent = loadComponent;
     (0, _findPath.setMatchPaths)(matchPaths);
   }
+
+  inFlightNetworkRequests = new Map();
 
   memoizedGet(url) {
     let inFlightPromise = this.inFlightNetworkRequests.get(url);
@@ -156,6 +164,12 @@ class BaseLoader {
             throw new Error(`not a valid pageData response`);
           }
 
+          const maybeSearch = pagePath.split(`?`)[1];
+
+          if (maybeSearch && !jsonPayload.path.includes(maybeSearch)) {
+            jsonPayload.path += `?${maybeSearch}`;
+          }
+
           return Object.assign(loadObj, {
             status: PageResourceStatus.Success,
             payload: jsonPayload
@@ -166,8 +180,8 @@ class BaseLoader {
 
 
       if (status === 404 || status === 200) {
-        // If the request was for a 404 page and it doesn't exist, we're done
-        if (pagePath === `/404.html`) {
+        // If the request was for a 404/500 page and it doesn't exist, we're done
+        if (pagePath === `/404.html` || pagePath === `/500.html`) {
           return Object.assign(loadObj, {
             status: PageResourceStatus.Error
           });
@@ -183,9 +197,10 @@ class BaseLoader {
 
 
       if (status === 500) {
-        return Object.assign(loadObj, {
-          status: PageResourceStatus.Error
-        });
+        return this.fetchPageDataJson(Object.assign(loadObj, {
+          pagePath: `/500.html`,
+          internalServerError: true
+        }));
       } // Handle everything else, including status === 0, and 503s. Should retry
 
 
@@ -262,8 +277,13 @@ class BaseLoader {
         componentChunkName,
         staticQueryHashes = []
       } = pageData;
-      const finalResult = {};
-      const componentChunkPromise = this.loadComponent(componentChunkName).then(component => {
+      const finalResult = {}; // In develop we have separate chunks for template and Head components
+      // to enable HMR (fast refresh requires single exports).
+      // In production we have shared chunk with both exports. Double loadComponent here
+      // will be deduped by webpack runtime resulting in single request and single module
+      // being loaded for both `component` and `head`.
+
+      const componentChunkPromise = Promise.all([this.loadComponent(componentChunkName), this.loadComponent(componentChunkName, `head`)]).then(([component, head]) => {
         finalResult.createdAt = new Date();
         let pageResources;
 
@@ -280,7 +300,7 @@ class BaseLoader {
           pageData = Object.assign(pageData, {
             webpackCompilationHash: allData[0] ? allData[0].webpackCompilationHash : ``
           });
-          pageResources = toPageResources(pageData, component);
+          pageResources = toPageResources(pageData, component, head);
         } // undefined if final result is an error
 
 
@@ -385,6 +405,11 @@ class BaseLoader {
     // Skip prefetching if we know user is on slow or constrained connection
     if (!doesConnectionSupportPrefetch()) {
       return false;
+    } // Don't prefetch if this is a crawler bot
+
+
+    if (navigator.userAgent && BOT_REGEX.test(navigator.userAgent)) {
+      return false;
     } // Check if the page exists.
 
 
@@ -397,35 +422,93 @@ class BaseLoader {
 
   prefetch(pagePath) {
     if (!this.shouldPrefetch(pagePath)) {
-      return false;
-    } // Tell plugins with custom prefetching logic that they should start
-    // prefetching this path.
-
-
-    if (!this.prefetchTriggered.has(pagePath)) {
-      this.apiRunner(`onPrefetchPathname`, {
-        pathname: pagePath
-      });
-      this.prefetchTriggered.add(pagePath);
-    } // If a plugin has disabled core prefetching, stop now.
-
-
-    if (this.prefetchDisabled) {
-      return false;
+      return {
+        then: resolve => resolve(false),
+        abort: () => {}
+      };
     }
 
-    const realPath = (0, _findPath.findPath)(pagePath); // Todo make doPrefetch logic cacheable
-    // eslint-disable-next-line consistent-return
+    if (this.prefetchTriggered.has(pagePath)) {
+      return {
+        then: resolve => resolve(true),
+        abort: () => {}
+      };
+    }
 
-    this.doPrefetch(realPath).then(() => {
-      if (!this.prefetchCompleted.has(pagePath)) {
-        this.apiRunner(`onPostPrefetchPathname`, {
-          pathname: pagePath
-        });
-        this.prefetchCompleted.add(pagePath);
+    const defer = {
+      resolve: null,
+      reject: null,
+      promise: null
+    };
+    defer.promise = new Promise((resolve, reject) => {
+      defer.resolve = resolve;
+      defer.reject = reject;
+    });
+    this.prefetchQueued.push([pagePath, defer]);
+    const abortC = new AbortController();
+    abortC.signal.addEventListener(`abort`, () => {
+      const index = this.prefetchQueued.findIndex(([p]) => p === pagePath); // remove from the queue
+
+      if (index !== -1) {
+        this.prefetchQueued.splice(index, 1);
       }
     });
-    return true;
+
+    if (!this.isPrefetchQueueRunning) {
+      this.isPrefetchQueueRunning = true;
+      setTimeout(() => {
+        this._processNextPrefetchBatch();
+      }, 3000);
+    }
+
+    return {
+      then: (resolve, reject) => defer.promise.then(resolve, reject),
+      abort: abortC.abort.bind(abortC)
+    };
+  }
+
+  _processNextPrefetchBatch() {
+    const idleCallback = window.requestIdleCallback || (cb => setTimeout(cb, 0));
+
+    idleCallback(() => {
+      const toPrefetch = this.prefetchQueued.splice(0, 4);
+      const prefetches = Promise.all(toPrefetch.map(([pagePath, dPromise]) => {
+        // Tell plugins with custom prefetching logic that they should start
+        // prefetching this path.
+        if (!this.prefetchTriggered.has(pagePath)) {
+          this.apiRunner(`onPrefetchPathname`, {
+            pathname: pagePath
+          });
+          this.prefetchTriggered.add(pagePath);
+        } // If a plugin has disabled core prefetching, stop now.
+
+
+        if (this.prefetchDisabled) {
+          return dPromise.resolve(false);
+        }
+
+        return this.doPrefetch((0, _findPath.findPath)(pagePath)).then(() => {
+          if (!this.prefetchCompleted.has(pagePath)) {
+            this.apiRunner(`onPostPrefetchPathname`, {
+              pathname: pagePath
+            });
+            this.prefetchCompleted.add(pagePath);
+          }
+
+          dPromise.resolve(true);
+        });
+      }));
+
+      if (this.prefetchQueued.length) {
+        prefetches.then(() => {
+          setTimeout(() => {
+            this._processNextPrefetchBatch();
+          }, 3000);
+        });
+      } else {
+        this.isPrefetchQueueRunning = false;
+      }
+    });
   }
 
   doPrefetch(pagePath) {
@@ -498,17 +581,25 @@ exports.BaseLoader = BaseLoader;
 const createComponentUrls = componentChunkName => (window.___chunkMapping[componentChunkName] || []).map(chunk => __PATH_PREFIX__ + chunk);
 
 class ProdLoader extends BaseLoader {
-  constructor(asyncRequires, matchPaths) {
+  constructor(asyncRequires, matchPaths, pageData) {
     const loadComponent = chunkName => {
       if (!asyncRequires.components[chunkName]) {
         throw new Error(`We couldn't find the correct component chunk with the name ${chunkName}`);
       }
 
-      return asyncRequires.components[chunkName]().then(preferDefault) // loader will handle the case when component is error
+      return asyncRequires.components[chunkName]() // loader will handle the case when component is error
       .catch(err => err);
     };
 
     super(loadComponent, matchPaths);
+
+    if (pageData) {
+      this.pageDataDb.set((0, _findPath.findPath)(pageData.path), {
+        pagePath: pageData.path,
+        payload: pageData,
+        status: `success`
+      });
+    }
   }
 
   doPrefetch(pagePath) {

@@ -2,12 +2,10 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 exports.__esModule = true;
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = require("react");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -15,31 +13,39 @@ var _apiRunnerBrowser = require("./api-runner-browser");
 
 var _findPath = require("./find-path");
 
-// Renders page
-class PageRenderer extends _react.default.Component {
-  render() {
-    const props = { ...this.props,
-      params: { ...(0, _findPath.grabMatchParams)(this.props.location.pathname),
-        ...this.props.pageResources.json.pageContext.__params
-      }
-    };
-    const pageElement = /*#__PURE__*/(0, _react.createElement)(this.props.pageResources.component, { ...props,
-      key: this.props.path || this.props.pageResources.page.path
-    });
-    const wrappedPage = (0, _apiRunnerBrowser.apiRunner)(`wrapPageElement`, {
-      element: pageElement,
-      props
-    }, pageElement, ({
-      result
-    }) => {
-      return {
-        element: result,
-        props
-      };
-    }).pop();
-    return wrappedPage;
-  }
+var _headExportHandlerForBrowser = require("./head/head-export-handler-for-browser");
 
+// Renders page
+function PageRenderer(props) {
+  const pageComponentProps = { ...props,
+    params: { ...(0, _findPath.grabMatchParams)(props.location.pathname),
+      ...props.pageResources.json.pageContext.__params
+    }
+  };
+
+  const preferDefault = m => m && m.default || m;
+
+  const pageElement = /*#__PURE__*/(0, _react.createElement)(preferDefault(props.pageResources.component), { ...pageComponentProps,
+    key: props.path || props.pageResources.page.path
+  });
+  const pageComponent = props.pageResources.head;
+  (0, _headExportHandlerForBrowser.headHandlerForBrowser)({
+    pageComponent,
+    staticQueryResults: props.pageResources.staticQueryResults,
+    pageComponentProps
+  });
+  const wrappedPage = (0, _apiRunnerBrowser.apiRunner)(`wrapPageElement`, {
+    element: pageElement,
+    props: pageComponentProps
+  }, pageElement, ({
+    result
+  }) => {
+    return {
+      element: result,
+      props: pageComponentProps
+    };
+  }).pop();
+  return wrappedPage;
 }
 
 PageRenderer.propTypes = {

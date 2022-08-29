@@ -12,8 +12,11 @@ module.exports = [{
       options: {"plugins":[]},
     },{
       plugin: require('../../node_modules/gatsby-source-wordpress/gatsby-browser.js'),
-      options: {"plugins":[],"url":"https://backend.fink.studio/graphql","hostingWPCOM":false,"useACF":true,"schema":{"perPage":10,"requestConcurrency":3,"previewRequestConcurrency":1}},
+      options: {"plugins":[],"url":"https://backend.fink.studio/graphql","hostingWPCOM":false,"useACF":true,"schema":{"perPage":10,"requestConcurrency":3,"previewRequestConcurrency":1,"queryDepth":15,"circularQueryLimit":5,"typePrefix":"Wp","timeout":30000},"verbose":true,"catchLinks":true},
     },{
       plugin: require('../../packages/gatsby-wordpress-theme-fink/gatsby-browser.js'),
-      options: {"plugins":[],"wordPressUrl":"https://backend.fink.studio","frontendUrl":"https://backend.fink.studio"},
+      options: {"plugins":[],"wordPressUrl":"https://backend.fink.studio","frontendUrl":"https://fink.studio"},
+    },{
+      plugin: require('../node_modules/gatsby/dist/internal-plugins/partytown/gatsby-browser.js'),
+      options: {"plugins":[]},
     }]

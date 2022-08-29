@@ -2,14 +2,12 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
 exports.__esModule = true;
 exports.RuntimeErrors = RuntimeErrors;
 
 var React = _interopRequireWildcard(require("react"));
 
-var _stackTrace = _interopRequireDefault(require("stack-trace"));
+var _errorStackParser = _interopRequireDefault(require("error-stack-parser"));
 
 var _overlay = require("./overlay");
 
@@ -21,21 +19,27 @@ var _utils = require("../utils");
 
 var _accordion = require("./accordion");
 
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function WrappedAccordionItem({
   error,
   open
 }) {
   var _res$sourcePosition;
 
-  const stacktrace = _stackTrace.default.parse(error);
+  const stacktrace = _errorStackParser.default.parse(error);
 
   const codeFrameInformation = (0, _utils.getCodeFrameInformation)(stacktrace);
-  const filePath = codeFrameInformation === null || codeFrameInformation === void 0 ? void 0 : codeFrameInformation.moduleId;
+  const modulePath = codeFrameInformation === null || codeFrameInformation === void 0 ? void 0 : codeFrameInformation.moduleId;
   const lineNumber = codeFrameInformation === null || codeFrameInformation === void 0 ? void 0 : codeFrameInformation.lineNumber;
   const columnNumber = codeFrameInformation === null || codeFrameInformation === void 0 ? void 0 : codeFrameInformation.columnNumber;
-  const name = codeFrameInformation === null || codeFrameInformation === void 0 ? void 0 : codeFrameInformation.functionName;
+  const name = codeFrameInformation === null || codeFrameInformation === void 0 ? void 0 : codeFrameInformation.functionName; // With the introduction of Metadata management the modulePath can have a resourceQuery that needs to be removed first
+
+  const filePath = modulePath.replace(/(\?|&)export=(default|head)$/, ``);
   const res = (0, _hooks.useStackFrame)({
-    moduleId: filePath,
+    moduleId: modulePath,
     lineNumber,
     columnNumber
   });
@@ -72,7 +76,20 @@ function RuntimeErrors({
   errors,
   dismiss
 }) {
-  const deduplicatedErrors = React.useMemo(() => Array.from(new Set(errors)), [errors]);
+  const deduplicatedErrors = React.useMemo(() => {
+    const errorCache = new Set();
+    const errorList = [];
+    errors.forEach(error => {
+      // Second line contains the exact location
+      const secondLine = error.stack.split(`\n`)[1];
+
+      if (!errorCache.has(secondLine)) {
+        errorList.push(error);
+        errorCache.add(secondLine);
+      }
+    });
+    return errorList;
+  }, [errors]);
   const hasMultipleErrors = deduplicatedErrors.length > 1;
   return /*#__PURE__*/React.createElement(_overlay.Overlay, null, /*#__PURE__*/React.createElement(_overlay.Header, {
     "data-gatsby-error-type": "runtime-error"
@@ -80,7 +97,7 @@ function RuntimeErrors({
     "data-gatsby-overlay": "header__cause-file"
   }, /*#__PURE__*/React.createElement("h1", {
     id: "gatsby-overlay-labelledby"
-  }, hasMultipleErrors ? `${errors.length} Unhandled Runtime Errors` : `Unhandled Runtime Error`)), /*#__PURE__*/React.createElement(_overlay.HeaderOpenClose, {
+  }, hasMultipleErrors ? `${deduplicatedErrors.length} Unhandled Runtime Errors` : `Unhandled Runtime Error`)), /*#__PURE__*/React.createElement(_overlay.HeaderOpenClose, {
     dismiss: dismiss
   })), /*#__PURE__*/React.createElement(_overlay.Body, null, /*#__PURE__*/React.createElement("p", {
     "data-gatsby-overlay": "body__describedby",

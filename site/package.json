@@ -15,9 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "gatsby": "^3.2.1",
+    "gatsby": "^4.21.1",
+    "gatsby-wordpress-theme-fink": "*",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "gatsby-wordpress-theme-fink": "*"
+    "react-dom": "^17.0.2"
   }
 }
