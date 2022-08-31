@@ -27,7 +27,7 @@ const AboutPage = ({location, pageContext: {acfAbout: { aboutImage, aboutText, a
         <Layout location={location} type="about">
             <section className="about-intro fink-grid-container">
                 <h2 id="intro" className="about-intro-title fink-grid-item fink-grid-item-2-6">{aboutTitle}</h2>
-                <div className="about-intro-text fink-grid-item fink-grid-item-2-6" dangerouslySetInnerHTML={{__html: aboutText}}></div>
+                <div className="about-intro-text fink-grid-item fink-grid-item-2-6" dangerouslySetInnerHTML={{__html: aboutText}}>aff</div>
                 <GatsbyImage className="about-intro-image fink-grid-item fink-grid-item-7-13" image={gatsbyAboutImage.image} alt={gatsbyAboutImage.altText}></GatsbyImage>
             </section>
             <section id="kontakt" className="about-contact">
