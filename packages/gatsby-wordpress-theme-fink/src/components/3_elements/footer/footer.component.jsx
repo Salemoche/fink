@@ -17,21 +17,30 @@ const Footer = ( { menu, siteOptions } ) => {
             </div>
             <nav className="footer-navigation">
                 <ul className="footer-navigation-list">
-                    { menu.menuItems.nodes.map(menuItem => (
-                        <li className="footer-navigation-list-item" key={menuItem.order}>
-                            <Link 
-                                // swipe 
-                                // direction="left" 
-                                // top="exit" 
-                                // duration={0.5} 
-                                // entryOffset={100} 
-                                // className="home-project-link" 
-                                to={menuItem.url}
-                            >
-                                {menuItem.label}
-                            </Link>
-                        </li>
-                    ))}
+                    { menu.menuItems.nodes.map((menuItem) => {
+                        if (!menuItem.url.includes('https')) {
+                            return (
+                                <li className="footer-navigation-list-item" key={menuItem.order}>
+                                <Link 
+                                    to={menuItem.url}
+                                >
+                                    {menuItem.label}
+                                </Link>
+                            </li>
+                            )
+                        } else {
+                            return (
+                                <li className="footer-navigation-list-item" key={menuItem.order}>
+                                    <a 
+                                        href={menuItem.url}
+                                    >
+                                        {menuItem.label}
+                                    </a>
+                                </li>
+                            )
+                        }
+                    })
+                    }
                 </ul>
             </nav>
             <div className="footer-copyright">
