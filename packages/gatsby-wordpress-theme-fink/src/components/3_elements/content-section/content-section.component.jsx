@@ -76,6 +76,7 @@ const ContentSection = ( props ) => {
     const getContent = (contentObject) => {
       if (!contentObject) return
       if (contentObject.contentType == 'TextLayout') {
+        console.log(contentObject)
         return <TextBlock text={contentObject.text}/>
       } else if (contentObject.contentType == 'ImageLayout') {
         return <ImageBlock {...contentObject}/>

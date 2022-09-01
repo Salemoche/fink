@@ -10,6 +10,16 @@
         margin-top: map_get( $spacing, "extra-extra-large" );
     }
 
+    //bs-todo
+    .content-section {
+        display: inline-block !important;
+
+        .content-section__column {
+            display: inline-block !important;
+        }
+    }
+    //bs-todo
+
     .content-section__column {
 
 
