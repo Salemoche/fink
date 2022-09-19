@@ -60,7 +60,7 @@ module.exports = async ( props ) => {
 
 				if (debug) {
                     console.warn('----------------------------------------- The data -----------------------------------------')
-                    console.log(JSON.stringify(data, null, 4))
+                    // console.log(JSON.stringify(data, null, 4))
                 }
 
                 let pages = [];
@@ -105,6 +105,10 @@ module.exports = async ( props ) => {
 					component: slash( component ),
 					context: { ...page }, // pass single page data in context, so its available in the singlePagetTemplate in props.pageContext.
 				} );
+
+                if ( slug == 'about' && page.slug == 'about') {
+                    console.info(page);
+                }
 
 				console.info("\x1b[36m", "Created a page at ", "\x1b[33m", slug || page.slug, "\x1b[36m", "with the component ", "\x1b[33m",  component)
 				if (debug) console.warn('----------------------------------------- End -----------------------------------------')
