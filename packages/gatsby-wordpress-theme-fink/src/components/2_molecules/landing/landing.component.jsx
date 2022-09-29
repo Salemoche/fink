@@ -20,7 +20,7 @@ const Landing = ( { mediaItemUrl } ) => {
 
     return (
         <section className="landing">
-            <video src={mediaItemUrl} autoPlay={true} loop={true} muted={true}></video>
+            <video src={mediaItemUrl} autoPlay={true} loop={true} muted={true} playsInline={true}></video>
             <button className="scroll-down-button" onClick={scrollDown}><AngleIcon/></button>
         </section>
     )

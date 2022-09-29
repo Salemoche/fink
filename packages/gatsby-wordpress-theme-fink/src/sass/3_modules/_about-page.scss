@@ -77,6 +77,8 @@
 
 .about-testimonials {
     padding: map_get( $spacing, "extra-extra-large" ) calc(100vw / 12 + #{map_get( $spacing, "regular" )});
+    background: $gray;
+    min-height: 75vh;
     
     .about-testimonial {
         padding: map_get( $spacing, "regular" );
@@ -199,6 +201,14 @@
             &:last-of-type {
                 margin-right: 0;
             }
+        }
+    }
+
+    .about-testimonials {
+        min-height: 50vh;
+        
+        .about-testimonial {
+            padding: 0;
         }
     }
 }

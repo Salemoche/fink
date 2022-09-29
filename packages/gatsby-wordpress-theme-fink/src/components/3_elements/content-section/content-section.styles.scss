@@ -22,7 +22,6 @@
 
     .content-section__column {
 
-
         &.content-section__column-left, &.content-section__column-right {
 
             display: grid;
@@ -31,6 +30,7 @@
             justify-items: stretch;
             align-items: end;
             position: relative;
+            order: 1;
 
             .text-block {
                 // grid-column-start: 2;
@@ -130,6 +130,14 @@
                     display: none;
                 }
             }
+
+            &.content-section__column-TextLayout {
+
+                .fink-grid-container {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
             
         }
     }
@@ -193,6 +201,10 @@
                         margin-top: map_get( $spacing, "regular" );
                     }
                 }
+            }
+
+            &-ImageLayout {
+                order: 0 !important;
             }
         }
     }

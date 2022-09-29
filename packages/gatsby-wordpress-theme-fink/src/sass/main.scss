@@ -346,7 +346,7 @@ ul, ol {
     padding-top: map_get( $spacing, "extra-large" );
     align-items: center;
     background: $gray;
-    min-height: 50vh;
+    min-height: 75vh;
 
     h2 {
         // grid-column-start: 2;
@@ -383,6 +383,8 @@ ul, ol {
     
     
     @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+
+        min-height: 50vh;
     
         .fink-partners-container {
             padding-bottom: map_get( $spacing, "extra-large" );
@@ -398,4 +400,8 @@ ul, ol {
             }
         }
     }
+}
+
+.about-members {
+    background: white;
 }

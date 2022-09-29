@@ -99,15 +99,15 @@ const ContentSection = ( props ) => {
     return (
         <section className={classNames('content-section', 'fink-grid-container')}>
             { isFull ?
-                <div className="content-section__column content-section__column-full fink-grid-item">
+                <div className={`content-section__column content-section__column-${sectionContent?.full?.contentType} content-section__column-full fink-grid-item`}>
                     { getContent(sectionContent.full ) }
                 </div>
                 :
                 <React.Fragment>
-                    <div className="content-section__column content-section__column-left fink-grid-item">
+                    <div className={`content-section__column content-section__column-${sectionContent?.left?.contentType} content-section__column-left fink-grid-item`}>
                         { getContent(sectionContent.left) }
                     </div>
-                    <div className="content-section__column content-section__column-right fink-grid-item">
+                    <div className={`content-section__column content-section__column-${sectionContent?.right?.contentType} content-section__column-right fink-grid-item`}>
                         { getContent(sectionContent.right) }
                     </div>
                 </React.Fragment>
