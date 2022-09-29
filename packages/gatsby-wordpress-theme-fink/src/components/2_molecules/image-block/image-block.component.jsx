@@ -18,6 +18,8 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 const ImageBlock = ( props ) => {
     
     if (!props.images) return ''
+    // console.log(props.images[0]?.image)
+    // return ''
     const contentImage = getGatsbyImage(props?.images[0]?.image)
     if (!contentImage) return ''
     const {index} = props;

@@ -48,7 +48,7 @@ const FrontPage = ({location, data: { wpPage }}) => {
 
     // useEffect(() => {
 
-    //     console.log(scrollY)
+        console.log(partners)
 
     // }, [scrollY]);
 
@@ -58,13 +58,13 @@ const FrontPage = ({location, data: { wpPage }}) => {
             {projects.map( (project, index) => (
                 <HomeProject key={index} project={{index, ...project}} scrollDist={scrollY} />
             ))}
-            <section className="home-partners fink-grid-container">
+            <section className="fink-partners fink-grid-container">
                 <h2 className="fink-grid-item fink-grid-item-2-12">{partnersTitle}</h2>
-                <div className="home-partners-container fink-grid-item fink-grid-item-2-12">
+                <div className="fink-partners-container fink-grid-item fink-grid-item-2-12">
                 {partners.map( (partner, index) => {
                     if(partner.link) {
                         return (
-                            <a href={partner.link} target="_blank" className="home-partner" key={index}>
+                            <a href={partner.link} target="_blank" className="fink-partner" key={index}>
                                 {/* <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage> */}
                                 { partner.logo ? 
                                     <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>
@@ -75,7 +75,7 @@ const FrontPage = ({location, data: { wpPage }}) => {
                         )
                     } else {
                         return (
-                            <div className="home-partner" key={index}>
+                            <div className="fink-partner" key={index}>
                                 {/* <GatsbyImage  image={logo.image} alt={logo.altText}></GatsbyImage> */}
                                 { partner.logo ? 
                                     <img className="home-project-background-texture" src={partner.logo.sourceUrl} alt={partner.altText}/>

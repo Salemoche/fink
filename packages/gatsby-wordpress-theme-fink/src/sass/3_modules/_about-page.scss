@@ -30,19 +30,28 @@
     }
 }
 
-.about-contact {
+.about-contact,
+.about-testimonials {
     height: unset;
     min-height: unset;
     padding: map_get( $spacing, "extra-extra-extra-large" ) calc(100vw / 12 + #{map_get( $spacing, "regular" )});
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    align-content: flex-end;
+    align-items: center; //baseline;
+    align-content: center; //flex-end;
+    flex-wrap: wrap;
 
-    .about-contact-text {
+    h2 {
+        width: 100%;
+        margin-bottom: map_get( $spacing, "extra-large" );
+    }
+
+    .about-contact-text,
+    .about-testimonial {
 
         width: calc(33% - #{map_get( $spacing, "regular" )});
         max-width: 414px;
+        text-align: center;
 
         &:nth-child(2):nth-last-child(2) {
 
@@ -61,6 +70,23 @@
                 margin-left: map_get( $spacing, "regular" );
                 margin-right: map_get( $spacing, "regular" );
             }
+        }
+
+    }
+}
+
+.about-testimonials {
+    padding: map_get( $spacing, "extra-extra-large" ) calc(100vw / 12 + #{map_get( $spacing, "regular" )});
+    
+    .about-testimonial {
+        padding: map_get( $spacing, "regular" );
+
+        .about-testimonial-text {
+            margin-bottom: map_get( $spacing, "regular" )
+        }
+    
+        .about-testimonial-name {
+             font-weight: 600;
         }
     }
 }
@@ -143,7 +169,8 @@
         padding-top: $header-height-mobile;
     }
 
-    .about-contact {
+    .about-contact,
+    .about-testimonials {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -152,7 +179,8 @@
         padding-right: map_get( $spacing, "regular" );
         padding-left: map_get( $spacing, "regular" );
 
-        .about-contact-text {
+        .about-contact-text,
+        .about-testimonial {
             margin-bottom: map_get( $spacing, "extra-large" );
             margin-right: 0 !important;
             margin-left: 0 !important;

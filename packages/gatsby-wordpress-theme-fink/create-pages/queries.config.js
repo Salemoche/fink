@@ -69,6 +69,7 @@ module.exports = {
                 slug
                 id
                 title
+                date
                 acfAbout {
                     fieldGroupName
                     aboutText
@@ -84,6 +85,12 @@ module.exports = {
                     contact {
                         contactItem
                     }
+                    testimonialsTitle
+                    testimonials {
+                        fieldGroupName
+                        name
+                        text
+                    }
                     pressText
                     pressTitle
                     pressImage {
@@ -91,6 +98,62 @@ module.exports = {
                         localFile {
                             childImageSharp {
                                 gatsbyImageData
+                            }
+                        }
+                    }
+                }
+                acfStart {
+                    partnersTitle
+                    partners {
+                        link
+                        logo {
+                            link
+                            altText
+                            sourceUrl
+                            localFile {
+                                childImageSharp {
+                                    gatsbyImageData
+                                }
+                            }
+                        }
+                    }
+                }
+                acfContent {
+                    sections {
+                        content {
+                            ... on WpPage_Acfcontent_sections_Content_TitleLayout {
+                                fieldGroupName
+                                title
+                            }
+                            ... on WpPage_Acfcontent_sections_Content_TextLayout {
+                                fieldGroupName
+                                text
+                            }
+                            ... on WpPage_Acfcontent_sections_Content_ImageLayout {
+                                fieldGroupName
+                                imageCaption
+                                image {
+                                    altText
+                                    caption
+                                    localFile {
+                                        childImageSharp {
+                                            gatsbyImageData
+                                        }
+                                    }
+                                }
+                            }
+                            ... on WpPage_Acfcontent_sections_Content_SliderLayout {
+                                fieldGroupName
+                                imageCaption
+                                slides {
+                                    altText
+                                    caption
+                                    localFile {
+                                        childImageSharp {
+                                            gatsbyImageData
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -214,6 +277,10 @@ module.exports = {
                         acfContent {
                             sections {
                                 content {
+                                    ... on WpPost_Acfcontent_sections_Content_TitleLayout {
+                                        fieldGroupName
+                                        title
+                                    }
                                     ... on WpPost_Acfcontent_sections_Content_TextLayout {
                                         fieldGroupName
                                         text
@@ -367,6 +434,10 @@ module.exports = {
                         acfContent {
                             sections {
                                 content {
+                                    ... on WpPost_Acfcontent_sections_Content_TitleLayout {
+                                        fieldGroupName
+                                        title
+                                    }
                                     ... on WpPost_Acfcontent_sections_Content_TextLayout {
                                         fieldGroupName
                                         text

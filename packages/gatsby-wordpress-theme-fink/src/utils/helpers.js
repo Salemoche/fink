@@ -50,9 +50,9 @@ export const getGatsbyImage = ( image, highRes = false ) => {
 
     return {
         image: gatsbyImage,
-        altText: image.altText,
-        width: gatsbyImage.width,
-        height: gatsbyImage.height
+        altText: image?.altText,
+        width: gatsbyImage?.width,
+        height: gatsbyImage?.height
     }
 }
 

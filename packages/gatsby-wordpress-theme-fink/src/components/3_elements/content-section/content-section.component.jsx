@@ -5,6 +5,7 @@ import React from 'react';
 // Misc
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import TitleBlock from '../../2_molecules/title-block/title-block.component';
 import TextBlock from '../../2_molecules/text-block/text-block.component';
 import ImageBlock from '../../2_molecules/image-block/image-block.component';
 
@@ -15,75 +16,76 @@ import SliderBlock from '../../2_molecules/slider-block/slider-block.component';
 const ContentSection = ( props ) => {
     const content = props.content;
     if (!content) return ''
-
-    const isFullImage = content.length == 1 && content[0].fieldGroupName !== 'post_Acfcontent_sections_Content_TextLayout';
+    const isFull = content.length == 1;
     const sectionContent = {}
 
     // fill layout object with the content (up to 2)
     const getSectionContent = (array, index) => {
 
-      const element = array[index];
-      if (!element) return {}
+        const element = array[index];
+        if (!element) return {}
 
-      // setTimeout(() => {
-      //     console.log(element)
-      // }, 400);
-      let images;
+        // setTimeout(() => {
+        //     console.log(element)
+        // }, 400);
+        let images;
 
-      if (element?.image) {
-        images = [
-          {
-            image: element?.image,
-            hasCaption: element?.imageCaption && element?.imageCaption != 'no',
-            caption: getCaption(element?.imageCaption, element?.image?.caption),
-            altText: element?.altText
-          } 
-        ]
-      } else if (element?.slides) {
-        images = element?.slides
-      }
+        if (element?.image) {
+            images = [
+            {
+                image: element?.image,
+                hasCaption: element?.imageCaption && element?.imageCaption != 'no',
+                caption: getCaption(element?.imageCaption, element?.image?.caption),
+                altText: element?.altText
+            } 
+            ]
+        } else if (element?.slides) {
+            images = element?.slides
+        }
 
-      return {
-        index,
-        contentType: element.fieldGroupName ? element.fieldGroupName.split('post_Acfcontent_sections_Content_')[1] : 'TextLayout',
-        text: element?.text,
-        images
-      }
+        return {
+            index,
+            contentType: element.fieldGroupName ? element.fieldGroupName.split('sections_Content_')[1] : 'TextLayout',
+            title: element?.title,
+            text: element?.text,
+            images
+        }
     }
     
     const getCaption = (imageCaption, defaultCaption) => {
 
-      switch (imageCaption) {
-      case 'no':
-        return ''
-        break;
-      case 'default':
-        return defaultCaption;
-        break;
-      default:
-        return imageCaption;
-        break;
-      }
+        switch (imageCaption) {
+        case 'no':
+            return ''
+            break;
+        case 'default':
+            return defaultCaption;
+            break;
+        default:
+            return imageCaption;
+            break;
+        }
     }
 
-    if (!isFullImage) {
-      sectionContent.left = getSectionContent(content, 0);
-      if (content[1]) sectionContent.right = getSectionContent(content, 1);
+    if (!isFull) {
+        sectionContent.left = getSectionContent(content, 0);
+        if (content[1]) sectionContent.right = getSectionContent(content, 1);
     } else {
-      sectionContent.full = getSectionContent(content, 0);
+        sectionContent.full = getSectionContent(content, 0);
     }
 
     const getContent = (contentObject) => {
-      if (!contentObject) return
-      if (contentObject.contentType == 'TextLayout') {
-        console.log(contentObject)
-        return <TextBlock text={contentObject.text}/>
-      } else if (contentObject.contentType == 'ImageLayout') {
-        return <ImageBlock {...contentObject}/>
-      } else if (contentObject.contentType == 'SliderLayout') {
-        // return <ImageBlock {...contentObject}/>
-        return <SliderBlock {...contentObject} full={isFullImage}/>
-      }
+        if (!contentObject) return
+        if (contentObject.contentType == 'TextLayout') {
+            return <TextBlock text={contentObject.text} full={isFull}/>
+        } else if (contentObject.contentType == 'TitleLayout') {
+            return <TitleBlock title={contentObject.title}/>
+        } else if (contentObject.contentType == 'ImageLayout') {
+            return <ImageBlock {...contentObject}/>
+        } else if (contentObject.contentType == 'SliderLayout') {
+            // return <ImageBlock {...contentObject}/>
+            return <SliderBlock {...contentObject} full={isFull}/>
+        }
     }
 
 
@@ -96,19 +98,19 @@ const ContentSection = ( props ) => {
 
     return (
         <section className={classNames('content-section', 'fink-grid-container')}>
-            { isFullImage ?
-              <div className="content-section__column content-section__column-full fink-grid-item">
-              { getContent(sectionContent.full ) }
-              </div>
-            :
-            <React.Fragment>
-              <div className="content-section__column content-section__column-left fink-grid-item">
-                { getContent(sectionContent.left) }
-              </div>
-              <div className="content-section__column content-section__column-right fink-grid-item">
-                { getContent(sectionContent.right) }
-              </div>
-            </React.Fragment>
+            { isFull ?
+                <div className="content-section__column content-section__column-full fink-grid-item">
+                    { getContent(sectionContent.full ) }
+                </div>
+                :
+                <React.Fragment>
+                    <div className="content-section__column content-section__column-left fink-grid-item">
+                        { getContent(sectionContent.left) }
+                    </div>
+                    <div className="content-section__column content-section__column-right fink-grid-item">
+                        { getContent(sectionContent.right) }
+                    </div>
+                </React.Fragment>
             }
         </section>
     )

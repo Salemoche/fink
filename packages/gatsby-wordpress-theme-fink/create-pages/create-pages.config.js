@@ -98,6 +98,11 @@ module.exports = async ( props ) => {
                 let pageSlug = isHome ? '/' : slug ? `/${slug}` : `/${page.slug}`;
                 // console.warn(`----------------------------------------- The Slug for ${page.slug} is ${pageSlug} -----------------------------------------`)
                 
+
+                if ( slug == 'about' && page.slug == 'about') {
+                    console.info(page);
+                }
+                
 				createPage( {
 					// path: `${ page.slug }`,
 					path: pageSlug,
@@ -105,10 +110,6 @@ module.exports = async ( props ) => {
 					component: slash( component ),
 					context: { ...page }, // pass single page data in context, so its available in the singlePagetTemplate in props.pageContext.
 				} );
-
-                if ( slug == 'about' && page.slug == 'about') {
-                    console.info(page);
-                }
 
 				console.info("\x1b[36m", "Created a page at ", "\x1b[33m", slug || page.slug, "\x1b[36m", "with the component ", "\x1b[33m",  component)
 				if (debug) console.warn('----------------------------------------- End -----------------------------------------')

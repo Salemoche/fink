@@ -340,3 +340,62 @@ ul, ol {
         }
     }
 }
+
+
+.fink-partners {
+    padding-top: map_get( $spacing, "extra-large" );
+    align-items: center;
+    background: $gray;
+    min-height: 50vh;
+
+    h2 {
+        // grid-column-start: 2;
+        // grid-column-end: 12;
+    }
+    
+    .fink-partners-container {
+
+        display: flex;
+        flex-wrap: wrap;
+        height: 100%;
+        align-items: center;
+        padding-bottom: map_get( $spacing, "extra-large" );
+        // grid-column-start: 2;
+        // grid-column-end: 12;
+
+        .fink-partner {
+            transition: opacity $transition-long;
+            width: 33%;
+            // margin-top: map_get( $spacing, "small" );
+            margin-bottom: -#{map_get( $spacing, "large-plus" )};
+            margin-top: -#{map_get( $spacing, "large-plus" )};
+    
+
+            img {
+                transform: scale(0.66);  
+                width: 100%;              
+            }
+        }
+
+
+    }
+
+    
+    
+    @media screen and (max-width: map_get( $mq-breakpoints, "medium" )) {   
+    
+        .fink-partners-container {
+            padding-bottom: map_get( $spacing, "extra-large" );
+            padding-top: map_get( $spacing, "large" );
+            
+            .fink-partner {
+                width: 50%;
+                margin-top: map_get( $spacing, "large" );
+    
+                img {
+                    transform: scale(1);                
+                }
+            }
+        }
+    }
+}
