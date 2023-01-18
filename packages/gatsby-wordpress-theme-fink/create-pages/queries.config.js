@@ -118,46 +118,6 @@ module.exports = {
                         }
                     }
                 }
-                acfContent {
-                    sections {
-                        content {
-                            ... on WpPage_Acfcontent_sections_Content_TitleLayout {
-                                fieldGroupName
-                                title
-                            }
-                            ... on WpPage_Acfcontent_sections_Content_TextLayout {
-                                fieldGroupName
-                                text
-                            }
-                            ... on WpPage_Acfcontent_sections_Content_ImageLayout {
-                                fieldGroupName
-                                imageCaption
-                                image {
-                                    altText
-                                    caption
-                                    localFile {
-                                        childImageSharp {
-                                            gatsbyImageData
-                                        }
-                                    }
-                                }
-                            }
-                            ... on WpPage_Acfcontent_sections_Content_SliderLayout {
-                                fieldGroupName
-                                imageCaption
-                                slides {
-                                    altText
-                                    caption
-                                    localFile {
-                                        childImageSharp {
-                                            gatsbyImageData
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     `,
