@@ -32,9 +32,6 @@ const AboutPage = ({
                 testimonialsTitle,
                 testimonials
             },
-            acfContent: {
-                sections
-            },
             acfStart: {
                 partnersTitle,
                 partners
@@ -58,13 +55,13 @@ const AboutPage = ({
                 <GatsbyImage className="about-intro-image fink-grid-item fink-grid-item-7-13" image={gatsbyAboutImage.image} alt={gatsbyAboutImage.altText}></GatsbyImage>
             </section>
 
-            { sections && 
+            {/* { sections && 
                 <div className="content">
                     {sections.map((sectionItem, i) => (
                         <ContentSection content={sectionItem.content} key={i}></ContentSection>
                     ))}
                 </div> 
-            }   
+            }    */}
             <section id="mitglieder" className="about-members fink-partners fink-grid-container">
                 {partnersTitle && <h2 className="fink-grid-item fink-grid-item-2-12">{partnersTitle}</h2>}
                 <div className="fink-partners-container fink-grid-item fink-grid-item-2-12">
